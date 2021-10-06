@@ -2,6 +2,8 @@ import React from 'react';
 
 import { Link } from 'gatsby';
 
+import ThemeToggle from './ThemeToggle';
+
 
 const Header = ({ siteTitle, siteDescription }) => {
   return(
@@ -9,6 +11,7 @@ const Header = ({ siteTitle, siteDescription }) => {
       <header>
         <h1>{siteTitle}</h1>
         <p>{siteDescription}</p>
+        <ThemeToggle />
       </header>
     </Link>
   );
