@@ -1,4 +1,11 @@
+const siteMetadata = {
+  title: `My Gatsby Blog`,
+  description: `This is my coding blog.`,
+};
+
+
 module.exports = {
+  siteMetadata,
   plugins: [
     `gatsby-plugin-mdx`,
     {
