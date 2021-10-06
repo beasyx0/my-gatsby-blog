@@ -1,6 +1,5 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
-import Layout from '../components/Layout';
 
 
 export const query = graphql`
@@ -19,20 +18,20 @@ export const query = graphql`
   }
 `;
 
-
+// all posts
 const IndexPage = ({data}) => {
   return(
-    <Layout>
-      {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
-        <article key={id} className={'card shadow'}>
-          <Link to={`/${slug}`}>
-            <p>{frontmatter.date}</p>
-            <h1>{frontmatter.title}</h1>
-            <p>{excerpt}</p>
-          </Link>
-        </article>
-      ))}
-    </Layout>
+    <>
+    {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
+      <article key={id} className={'mb-4 p-2 card shadow rounded'}>
+        <Link to={`/${slug}`}>
+          <p>{frontmatter.date}</p>
+          <h1>{frontmatter.title}</h1>
+          <p>{excerpt}</p>
+        </Link>
+      </article>
+    ))}
+    </>
   );
 }
 export default IndexPage;
