@@ -1,12 +1,19 @@
 const siteMetadata = {
   title: `My Gatsby Blog`,
   description: `This is my coding blog.`,
+  lastBuildDate: new Date(Date.now()).toISOString(),
+  siteUrl: `https://dummy-url.com/`,
+  authorName: `Authors Name`,
+  twitterUsername: `@authorOfPosts`,
+  siteLanguage: `en-us`,
+  siteLocale: `en-us`,
 };
 
 
 module.exports = {
   siteMetadata,
   plugins: [
+    `gatsby-plugin-react-helmet`,
     `gatsby-plugin-dark-mode`,
     `gatsby-plugin-sharp`,
     {

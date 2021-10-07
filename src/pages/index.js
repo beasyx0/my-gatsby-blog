@@ -1,5 +1,7 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
+import SEO from "react-seo-component";
+import { useSiteMetadata } from "../hooks/use-site-metadata";
 
 
 export const query = graphql`
@@ -20,8 +22,26 @@ export const query = graphql`
 
 // all posts
 const IndexPage = ({data}) => {
+  const {
+    title,
+    description,
+    siteUrl,
+    siteLanguage,
+    siteLocale,
+    twitterUsername,
+  } = useSiteMetadata();
+
   return(
     <>
+    <SEO
+      title={`Home`}
+      titleTemplate={title}
+      description={description}
+      pathname={siteUrl}
+      siteLanguage={siteLanguage}
+      siteLocale={siteLocale}
+      twitterUsername={twitterUsername}
+    />
     {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
       <article key={id} className={'mb-4 p-2 card shadow rounded'}>
         <Link to={`/${slug}`}>
