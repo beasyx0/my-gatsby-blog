@@ -11,13 +11,15 @@ import ThemeToggle from './ThemeToggle';
 
 const Header = ({ siteTitle, siteDescription }) => {
   return(
-    <Link to="/">
       <header>
         <Container className={'m-0 p-0'}>
           <Row>
             <Col xs={10}>
-              <h1>{siteTitle}</h1>
-              <p>{siteDescription}</p>
+              <Link to="/">
+                <h1 className={'d-inline-block'}>{siteTitle}</h1>
+                <br />
+                <p className={'d-inline-block'}>{siteDescription}</p>
+              </Link>
             </Col>
             <Col xs={2} className={'pt-4'}>
               <ThemeToggle />
@@ -25,7 +27,6 @@ const Header = ({ siteTitle, siteDescription }) => {
           </Row>
         </Container>
       </header>
-    </Link>
   );
 }
 export default Header;

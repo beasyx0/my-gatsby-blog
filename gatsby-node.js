@@ -1,5 +1,6 @@
 const fetch = require('node-fetch');
 
+// source and create nodes into the data layer for each post returned from the API.
 exports.sourceNodes = async ({ actions, createContentDigest, createNodeId }) => {
   const response = await fetch('http://127.0.0.1:8000/api/v1/posts/posts/')
   const json = await response.json();

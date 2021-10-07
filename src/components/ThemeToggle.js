@@ -11,7 +11,7 @@ const ThemeToggle = () => {
         <div>
           <a 
             href="#" 
-            onClick={() => (theme === 'dark' ? toggleTheme("light") : toggleTheme("dark"))}
+            onClick={()=> {(theme === 'dark' ? toggleTheme("light") : toggleTheme("dark"))}}
           >
             {theme === 'dark' ? <FaSun className={'text-warning h5'} /> : <FaMoon className={'text-warning h5'} />}
           </a>
