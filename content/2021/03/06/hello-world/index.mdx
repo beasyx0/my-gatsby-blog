@@ -3,6 +3,9 @@ title: Hello World - from mdx!
 date: 2021-03-06
 ---
 
+import Header from "../../../../../src/components/Header";
+import { useSiteMetadata } from "../../../../../src/hooks/use-site-metadata";
+
 My first post!!
 
 ## h2 Heading
@@ -14,3 +17,7 @@ Some meaningful prose
 Some other meaningful prose
 
 <div className={'text-success'}>This is a div</div>
+
+# An <span className={'text-danger'}>H1</span>
+
+![mdx logo](./gradient.jpg)
