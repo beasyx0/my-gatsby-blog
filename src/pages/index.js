@@ -3,6 +3,8 @@ import { graphql, Link } from 'gatsby';
 import SEO from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 
+import usePosts from '../hooks/use-posts';
+
 
 export const query = graphql`
   query SITE_INDEX_QUERY {
@@ -22,6 +24,15 @@ export const query = graphql`
 
 // all posts
 const IndexPage = ({data}) => {
+
+  const { posts: allPosts } = usePosts();
+
+  allPosts.map(post=>{
+    console.log("===================================");
+    console.log(post.slug)
+    console.log("===================================");
+  })
+
   const {
     title,
     description,
