@@ -3,7 +3,8 @@ import { graphql, Link } from 'gatsby';
 import SEO from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 
-import usePosts from '../hooks/use-posts';
+// import usePosts from '../hooks/use-posts';
+import MotionDiv from '../components/MotionDiv';
 
 
 export const query = graphql`
@@ -25,13 +26,13 @@ export const query = graphql`
 // all posts
 const IndexPage = ({data}) => {
 
-  const { posts: allPosts } = usePosts();
+  // const { posts: allPosts } = usePosts();
 
-  allPosts.map(post=>{
-    console.log("===================================");
-    console.log(post.slug)
-    console.log("===================================");
-  })
+  // allPosts.map(post=>{
+  //   console.log("===================================");
+  //   console.log(post.slug)
+  //   console.log("===================================");
+  // })
 
   const {
     title,
@@ -53,15 +54,17 @@ const IndexPage = ({data}) => {
       siteLocale={siteLocale}
       twitterUsername={twitterUsername}
     />
-    {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
-      <article key={id} className={'mb-4 p-2 card shadow rounded'}>
-        <Link to={`/${slug}`}>
-          <p>{frontmatter.date}</p>
-          <h1>{frontmatter.title}</h1>
-          <p>{excerpt}</p>
-        </Link>
-      </article>
-    ))}
+    <MotionDiv>
+      {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
+        <article key={id} className={'mb-4 p-2 card shadow rounded'}>
+          <Link to={`/${slug}`}>
+            <p>{frontmatter.date}</p>
+            <h1>{frontmatter.title}</h1>
+            <p>{excerpt}</p>
+          </Link>
+        </article>
+      ))}
+    </MotionDiv>
     </>
   );
 }

@@ -4,6 +4,8 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import SEO from 'react-seo-component';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 
+import MotionDiv from '../components/MotionDiv';
+
 
 export const query = graphql`
   query POST_BY_SLUG($slug: String) {
@@ -53,11 +55,13 @@ const PostPage = ({ data }) => {
         publishedDate={date}
         modifiedDate={new Date(Date.now()).toISOString()}
       />
-      <article>
-        <p>{date}</p>
-        <h1>{title}</h1>
-        <MDXRenderer>{body}</MDXRenderer>
-      </article>
+      <MotionDiv>
+        <article>
+          <p>{date}</p>
+          <h1>{title}</h1>
+          <MDXRenderer>{body}</MDXRenderer>
+        </article>
+      </MotionDiv>
     </>
   );
 }

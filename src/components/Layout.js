@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 import Header from './Header';
+import Sidebar from './Sidebar';
 
 
 const Layout = ({ children }) => {
@@ -19,17 +20,16 @@ const Layout = ({ children }) => {
       </Row>
       <Row>
         <Col sm={12} md={12} lg={8}>
-          <main>
+          <main className={'min-vh-100'}>
             <h3>Col 1</h3>
             {children}
           </main>
         </Col>
         <Col sm={12} md={12} lg={4}>
-          <h3>Col 2</h3>
+          <Sidebar />
         </Col>
       </Row>
       <Row>
-        {/* Footer goes here */}
         <p>This is the footer</p>
       </Row>
     </Container>
