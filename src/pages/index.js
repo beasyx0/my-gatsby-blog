@@ -68,7 +68,9 @@ const IndexPage = ({data}) => {
             {frontmatter.tags && (
               <>
                 {frontmatter.tags.map((tag)=>(
-                  <p>{tag}</p>
+                  <Link key={tag} to={`/tags/${tag.toLowerCase()}`}>
+                    <span>{tag}</span>
+                  </Link>
                 ))}
               </>
             )}

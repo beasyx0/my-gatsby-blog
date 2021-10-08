@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql } from 'gatsby';
+import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import SEO from 'react-seo-component';
 import { useSiteMetadata } from '../hooks/use-site-metadata';
@@ -41,10 +41,12 @@ const PostPage = ({ data }) => {
     authorName
   } = useSiteMetadata();
 
+  alert(title)
+
   return(
     <>
       <SEO
-        title={title}
+        title={`Post Detail`}
         titleTemplate={siteTitle}
         description={excerpt}
         pathname={`${siteUrl}${slug}`}
@@ -60,9 +62,15 @@ const PostPage = ({ data }) => {
         <article>
           <p>{date}</p>
           <h1>{title}</h1>
-          {tags.map((tag)=>(
-            <p>{tag}</p>
-          ))}
+          {tags && (
+            <>
+              {tags.map((tag)=>(
+                <Link to={`/tags/${tag}`}>
+                  <span>{tag}</span>
+                </Link>
+              ))}
+            </>
+          )}
           <MDXRenderer>{body}</MDXRenderer>
         </article>
       </MotionDiv>

@@ -22,3 +22,30 @@
 //     });
 //   })
 // };
+
+const path = require('path')
+
+exports.createPages = async ({ actions, graphql, reporter }) => {
+  const { createPage } = actions;
+  const tagTemplate = path.resolve('src/pages/tag-template.js');
+
+  const result = await graphql(`
+    query {
+      allMdx {
+        group(field: frontmatter___tags) {
+          fieldValue
+        }
+      }
+    }
+  `);
+  const tags = result.data.allMdx.group;
+  tags.forEach((tag) => {
+    createPage({
+      path: `/tags/${tag.fieldValue}/`,
+      component: tagTemplate,
+      context: {
+        tag: tag.fieldValue,
+      },
+    });
+  });
+}

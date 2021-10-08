@@ -18,7 +18,7 @@ const AllTags = () => {
         <div>
           {data.allMdx.group.map((obj)=>{
             return(
-              <p>{obj.fieldValue}</p>
+              <p key={obj.fieldValue}>{obj.fieldValue}</p>
             );
           })}
         </div>
