@@ -4,6 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
+import AllTags from './AllTags';
+
 
 const Sidebar = ({ children }) => {
   return(
@@ -11,7 +13,7 @@ const Sidebar = ({ children }) => {
       <Container className={'m-0 p-0'}>
         <Row>
           <Col>
-            <p>This is the Sidebar</p>
+            <AllTags />
           </Col>
         </Row>
       </Container>

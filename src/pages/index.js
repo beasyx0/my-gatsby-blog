@@ -6,16 +6,19 @@ import { useSiteMetadata } from "../hooks/use-site-metadata";
 // import usePosts from '../hooks/use-posts';
 import MotionDiv from '../components/MotionDiv';
 
+import Dump from '../components/Dump';
+
 
 export const query = graphql`
   query SITE_INDEX_QUERY {
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }) {
+    allMdx(sort: {fields: [frontmatter___date], order: DESC}) {
       nodes {
         id
         excerpt(pruneLength: 250)
         frontmatter {
           title
           date(formatString: "YYYY MMMM Do")
+          tags
         }
         slug
       }
@@ -56,12 +59,19 @@ const IndexPage = ({data}) => {
     />
     <MotionDiv>
       {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
-        <article key={id} className={'mb-4 p-2 card shadow rounded'}>
-          <Link to={`/${slug}`}>
+        <article key={id} className={'mb-4 p-2 card shadow rounded text-dark'}>
             <p>{frontmatter.date}</p>
-            <h1>{frontmatter.title}</h1>
+            <Link to={`/${slug}`}>
+              <h1>{frontmatter.title}</h1>
+            </Link>
             <p>{excerpt}</p>
-          </Link>
+            {frontmatter.tags && (
+              <>
+                {frontmatter.tags.map((tag)=>(
+                  <p>{tag}</p>
+                ))}
+              </>
+            )}
         </article>
       ))}
     </MotionDiv>

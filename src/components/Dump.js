@@ -16,7 +16,7 @@ const Dump = (props) => {
           <strong style={{ color: 'white', background: 'red' }}>
             {key} 💩
           </strong>
-          {JSON.stringify(val, '', ' ')}
+          <span className={'text-dark'}>{JSON.stringify(val, '', ' ')}</span>
         </pre>
       ))}
     </div>

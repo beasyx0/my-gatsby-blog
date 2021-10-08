@@ -6,10 +6,10 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 
 import MotionDiv from '../components/MotionDiv';
 
-
+// todo: get rid of excerpt
 export const query = graphql`
   query POST_BY_SLUG($slug: String) {
-    mdx(slug: { eq: $slug }) {
+    mdx(slug: {eq: $slug}) {
       id
       slug
       body
@@ -17,6 +17,7 @@ export const query = graphql`
       frontmatter {
         title
         date(formatString: "YYYY MMMM Do")
+        tags
       }
     }
   }
@@ -26,7 +27,7 @@ export const query = graphql`
 const PostPage = ({ data }) => {
   const { 
     slug,
-    frontmatter: { title, date },
+    frontmatter: { title, date, tags },
     excerpt,
     body, 
   } = data.mdx;
@@ -59,6 +60,9 @@ const PostPage = ({ data }) => {
         <article>
           <p>{date}</p>
           <h1>{title}</h1>
+          {tags.map((tag)=>(
+            <p>{tag}</p>
+          ))}
           <MDXRenderer>{body}</MDXRenderer>
         </article>
       </MotionDiv>
