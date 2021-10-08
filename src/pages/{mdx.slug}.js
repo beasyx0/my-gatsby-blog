@@ -35,28 +35,29 @@ const PostPage = ({ data }) => {
   const {
     title: siteTitle,
     siteUrl,
+    siteImageUrl,
     siteLanguage,
     siteLocale,
     twitterUsername,
     authorName
   } = useSiteMetadata();
 
-  alert(title)
-
   return(
     <>
       <SEO
         title={`Post Detail`}
         titleTemplate={siteTitle}
+        titleSeperator={'-'}
         description={excerpt}
-        pathname={`${siteUrl}${slug}`}
+        pathname={`${siteUrl}/${slug}`}
         article={true}
+        image={siteImageUrl}
         siteLanguage={siteLanguage}
         siteLocale={siteLocale}
         twitterUsername={twitterUsername}
         author={authorName}
-        publishedDate={date}
-        modifiedDate={new Date(Date.now()).toISOString()}
+        datePublished={date}
+        dateModified={new Date(Date.now()).toISOString()}
       />
       <MotionDiv>
         <article>

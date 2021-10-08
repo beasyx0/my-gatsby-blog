@@ -2,13 +2,13 @@ const siteMetadata = {
   title: `My Gatsby Blog`,
   description: `This is my coding blog.`,
   lastBuildDate: new Date(Date.now()).toISOString(),
-  siteUrl: `https://dummy-url.com/`,
+  siteUrl: `https://dummy-url.com`,
+  siteImageUrl: `https://dummy-url.com/siteImage.jpg`,
   authorName: `Authors Name`,
   twitterUsername: `@authorOfPosts`,
-  siteLanguage: `en-us`,
-  siteLocale: `en-us`,
+  siteLanguage: `en`,
+  siteLocale: `en_us`,
 };
-
 
 module.exports = {
   siteMetadata,

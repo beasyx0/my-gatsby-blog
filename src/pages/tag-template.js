@@ -1,10 +1,10 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 
+import SEO from "react-seo-component";
+import { useSiteMetadata } from "../hooks/use-site-metadata";
 import MotionDiv from '../components/MotionDiv';
 
-// todo: setup seo instance in this page
-// todo: make all tags clickable
 
 export const query = graphql`
   query ($tag: String) {
@@ -33,36 +33,60 @@ const TagPage = ({ pageContext, data }) => {
     totalCount === 1 ? '' : 's'
   } tagged with "${tag}"`;
 
+  const {
+    title,
+    siteUrl,
+    siteImageUrl,
+    siteLanguage,
+    siteLocale,
+    twitterUsername,
+  } = useSiteMetadata();
+
+  const pageDescription = `A list of blog posts tagged with ${tag}`
+
   return(
-    <MotionDiv>
-      <h1>{tagHeader}</h1>
-      {edges.map(({ node }) => {
-        const { slug, excerpt } = node;
-        const { title, date, tags } = node.frontmatter;
+    <>
+      <SEO
+        title={`Tag Detail`}
+        titleTemplate={title}
+        titleSeperator={'-'}
+        description={pageDescription}
+        pathname={`${siteUrl}/tags/${tag}`}
+        image={siteImageUrl}
+        siteLanguage={siteLanguage}
+        siteLocale={siteLocale}
+        twitterUsername={twitterUsername}
+      />
+      <MotionDiv>
+        <h1>{tagHeader}</h1>
+        {edges.map(({ node }) => {
+          const { slug, excerpt } = node;
+          const { title, date, tags } = node.frontmatter;
 
-        return (
-          <div key={slug}>
-            <Link to={`/${slug}`}>
-              <h3>{title}</h3>
-            </Link>
+          return (
+            <div className={'mb-4 p-2 card shadow rounded text-dark'} key={slug}>
+              <Link to={`/${slug}`}>
+                <h3>{title}</h3>
+              </Link>
 
-            <p>
-              {date}
-              <span> ● Tag: </span>
-              {tags.map((tag) => (
-                <Link
-                  key={tag.toLowerCase()}
-                  to={`/tags/${tag.toLowerCase()}`}
-                >
-                  {tag}
-                </Link>
-              ))}
-            </p>
-            <p>{excerpt}</p>
-          </div>
-        );
-      })}
-    </MotionDiv>
+              <p>
+                {date}
+                <span> ● Tag: </span>
+                {tags.map((tag) => (
+                  <Link
+                    key={tag.toLowerCase()}
+                    to={`/tags/${tag.toLowerCase()}`}
+                  >
+                    {tag}
+                  </Link>
+                ))}
+              </p>
+              <p>{excerpt}</p>
+            </div>
+          );
+        })}
+      </MotionDiv>
+    </>
   );
 }
 export default TagPage;

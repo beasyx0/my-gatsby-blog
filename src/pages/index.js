@@ -41,9 +41,11 @@ const IndexPage = ({data}) => {
     title,
     description,
     siteUrl,
+    siteImageUrl,
     siteLanguage,
     siteLocale,
     twitterUsername,
+    authorName,
   } = useSiteMetadata();
 
   return(
@@ -51,11 +53,14 @@ const IndexPage = ({data}) => {
     <SEO
       title={`Home`}
       titleTemplate={title}
+      titleSeperator={'-'}
       description={description}
       pathname={siteUrl}
+      image={siteImageUrl}
       siteLanguage={siteLanguage}
       siteLocale={siteLocale}
       twitterUsername={twitterUsername}
+      author={authorName}
     />
     <MotionDiv>
       {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
