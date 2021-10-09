@@ -49,38 +49,40 @@ const IndexPage = ({data}) => {
 
   return(
     <>
-    <SEO
-      title={`Home`}
-      titleTemplate={title}
-      titleSeperator={'-'}
-      description={description}
-      pathname={siteUrl}
-      image={siteImageUrl}
-      siteLanguage={siteLanguage}
-      siteLocale={siteLocale}
-      twitterUsername={twitterUsername}
-      author={authorName}
-    />
-    <MotionDiv>
-      {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
-        <article key={id} className={'mb-4 p-2 card shadow rounded text-dark'}>
+      <SEO
+        title={`Home`}
+        titleTemplate={title}
+        titleSeperator={'-'}
+        description={description}
+        pathname={siteUrl}
+        image={siteImageUrl}
+        siteLanguage={siteLanguage}
+        siteLocale={siteLocale}
+        twitterUsername={twitterUsername}
+        author={authorName}
+      />
+      <MotionDiv>
+        {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
+          <article key={id} className={'mb-4 p-2 card shadow rounded text-dark'}>
             <p>{formatDate(frontmatter.date)}</p>
             <Link to={`/${slug}`}>
               <h1>{frontmatter.title}</h1>
             </Link>
             <p>{excerpt}</p>
             {frontmatter.tags && (
-              <>
+              <p>
                 {frontmatter.tags.map((tag)=>(
                   <Link key={tag} to={`/tags/${tag}/`}>
-                    <span>{tag}</span>
+                    <span>
+                      {tag}
+                    </span>
                   </Link>
                 ))}
-              </>
+              </p>
             )}
-        </article>
-      ))}
-    </MotionDiv>
+          </article>
+        ))}
+      </MotionDiv>
     </>
   );
 }

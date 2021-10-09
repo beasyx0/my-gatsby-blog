@@ -69,18 +69,17 @@ const TagPage = ({ pageContext, data }) => {
                 <h3>{title}</h3>
               </Link>
 
-              <p>
-                {date}
+              <p>{date}</p>
                 <span> ● Tag: </span>
-                {tags.map((tag) => (
-                  <Link
-                    key={tag.toLowerCase()}
-                    to={`/tags/${tag.toLowerCase()}`}
-                  >
-                    {tag}
-                  </Link>
-                ))}
-              </p>
+                {tags && (
+                  <>
+                    {tags.map((tag) => (
+                      <Link key={tag} to={`/tags/${tag}/`}>
+                        {tag}
+                      </Link>
+                    ))}
+                  </>
+                )}
               <p>{excerpt}</p>
             </div>
           );

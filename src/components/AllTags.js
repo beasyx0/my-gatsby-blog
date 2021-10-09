@@ -15,7 +15,7 @@ const AllTags = () => {
         }
       `}
       render={data => (
-        <div>
+        <p>
           {data.allMdx.group.map((obj)=>{
             return(
               <Link key={obj.fieldValue} to={`/tags/${obj.fieldValue}/`}>
@@ -23,7 +23,7 @@ const AllTags = () => {
               </Link>
             );
           })}
-        </div>
+        </p>
       )}
     />
   );

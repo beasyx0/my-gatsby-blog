@@ -5,17 +5,31 @@ import {FaSun, FaMoon} from 'react-icons/fa';
 
 
 const ThemeToggle = () => {
+
+  const handleClick = (e, theme, toggleTheme) => {
+    e.preventDefault();
+    if (theme === 'light') {
+      toggleTheme('dark')
+    } else {
+      toggleTheme('light')
+    }
+  }
+
   return(
     <ThemeToggler>
       {({ theme, toggleTheme }) => (
-        <div>
-          <a 
-            href="#" 
-            onClick={()=> {(theme === 'dark' ? toggleTheme("light") : toggleTheme("dark"))}}
-          >
-            {theme === 'dark' ? <FaSun className={'text-warning h5'} /> : <FaMoon className={'text-warning h5'} />}
-          </a>
-        </div>
+        <>
+          {theme === 'dark' && (
+            <a href="#" onClick={(e)=>handleClick(e, theme, toggleTheme)}>
+              <FaSun className={'text-warning h5'} />
+            </a>
+          )}
+          {theme === 'light' && (
+            <a href="#" onClick={(e)=>handleClick(e, theme, toggleTheme)}>
+              <FaMoon className={'text-warning h5'} />
+            </a>
+          )}
+        </>
       )}
     </ThemeToggler>
   );

@@ -10,3 +10,6 @@ body {
   --secondaryText: #9d9d9d;
   color: #f8f9fa;
 }
+a {
+  text-decoration: none;
+}

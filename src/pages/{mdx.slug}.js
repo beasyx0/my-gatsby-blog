@@ -67,13 +67,13 @@ const PostPage = ({ data }) => {
           <p>{dateForDisplay}</p>
           <h1>{title}</h1>
           {tags && (
-            <>
+            <p>
               {tags.map((tag)=>(
-                <Link to={`/tags/${tag}`}>
+                <Link key={tag} to={`/tags/${tag}/`}>
                   <span>{tag}</span>
                 </Link>
               ))}
-            </>
+            </p>
           )}
           <MDXRenderer>{body}</MDXRenderer>
         </article>

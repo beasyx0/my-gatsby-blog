@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
         </Col>
       </Row>
       <Row>
-        <Col xs={12} sm={12} md={12} lg={8} xl={8}>
+        <Col sm={12} md={12} lg={8}>
           <main className={'min-vh-100'}>
             <h3>Col 1</h3>
             {children}
