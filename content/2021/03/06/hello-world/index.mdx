@@ -2,6 +2,7 @@
 title: Hello World - from mdx!
 date: 2021-03-06
 tags: [python, django, javascript, first, second, another]
+image: https://radicalhub.com/wp-content/uploads/2018/07/javascript.jpg
 ---
 
 import Header from "../../../../../src/components/Header";
@@ -30,6 +31,16 @@ Some other meaningful prose
 ```
 
 ```python
-    def some_function():
-        return 'hi there.'
+    class MyModel(models.Model):
+        date = models.DateTimeField(auto_now_add=true)
+        some_other_field = models.TextField()
+
+        def __str__(self):
+            return self.some_other_field
+```
+
+```javascript
+    const myFunction = () => {
+        alert('yeehaw');
+    }
 ```

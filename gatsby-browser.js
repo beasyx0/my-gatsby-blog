@@ -9,6 +9,8 @@ import { MDXProvider } from '@mdx-js/react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import duotoneLite from 'prism-react-renderer/themes/duotoneLight';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
+
+
 /* eslint-disable */
 const component = {
   pre: props => {

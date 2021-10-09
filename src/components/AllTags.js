@@ -10,6 +10,7 @@ const AllTags = () => {
           allMdx {
             group(field: frontmatter___tags) {
               fieldValue
+              totalCount
             }
           }
         }
@@ -19,7 +20,7 @@ const AllTags = () => {
           {data.allMdx.group.map((obj)=>{
             return(
               <Link key={obj.fieldValue} to={`/tags/${obj.fieldValue}/`}>
-                <span>{obj.fieldValue}</span>
+                <span>{obj.fieldValue}-{obj.totalCount}</span>
               </Link>
             );
           })}

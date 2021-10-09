@@ -13,15 +13,14 @@ const Layout = ({ children }) => {
   const { title, description } = useSiteMetadata();
   return(
     <Container>
-      <Row>
+      <Row className={'mb-4'}>
         <Col>
           <Header siteTitle={title} siteDescription={description} />
         </Col>
       </Row>
-      <Row>
+      <Row className={'mb-4'}>
         <Col sm={12} md={12} lg={8}>
           <main className={'min-vh-100'}>
-            <h3>Col 1</h3>
             {children}
           </main>
         </Col>
@@ -29,7 +28,7 @@ const Layout = ({ children }) => {
           <Sidebar />
         </Col>
       </Row>
-      <Row>
+      <Row className={'mb-4'}>
         <p>This is the footer</p>
       </Row>
     </Container>

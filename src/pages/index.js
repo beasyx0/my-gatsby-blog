@@ -1,11 +1,12 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
 import SEO from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 
 // import usePosts from '../hooks/use-posts';
 import MotionDiv from '../components/MotionDiv';
 import formatDate from '../utils';
+import PostCard from '../components/PostCard';
 
 
 export const query = graphql`
@@ -16,10 +17,12 @@ export const query = graphql`
         excerpt(pruneLength: 250)
         frontmatter {
           title
-          date
+          date(formatString: "YYYY MMMM Do")
           tags
+          image
         }
         slug
+        timeToRead
       }
     }
   }
@@ -47,6 +50,8 @@ const IndexPage = ({data}) => {
     authorName,
   } = useSiteMetadata();
 
+  const posts = data.allMdx.nodes;
+
   return(
     <>
       <SEO
@@ -62,26 +67,21 @@ const IndexPage = ({data}) => {
         author={authorName}
       />
       <MotionDiv>
-        {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
-          <article key={id} className={'mb-4 p-2 card shadow rounded text-dark'}>
-            <p>{formatDate(frontmatter.date)}</p>
-            <Link to={`/${slug}`}>
-              <h1>{frontmatter.title}</h1>
-            </Link>
-            <p>{excerpt}</p>
-            {frontmatter.tags && (
-              <p>
-                {frontmatter.tags.map((tag)=>(
-                  <Link key={tag} to={`/tags/${tag}/`}>
-                    <span>
-                      {tag}
-                    </span>
-                  </Link>
-                ))}
-              </p>
-            )}
-          </article>
-        ))}
+        {posts.map((post) => {
+          const { slug, excerpt, timeToRead } = post;
+          const { date, title, tags, image } = post.frontmatter;
+          return(
+            <PostCard 
+              slug={slug} 
+              date={date} 
+              postImageUrl={image} 
+              timeToRead={timeToRead}
+              title={title} 
+              excerpt={excerpt} 
+              tags={tags}
+            />
+          );
+        })}
       </MotionDiv>
     </>
   );

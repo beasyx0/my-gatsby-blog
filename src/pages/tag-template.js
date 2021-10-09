@@ -1,9 +1,12 @@
 import React from 'react';
-import { graphql, Link } from 'gatsby';
+import { graphql } from 'gatsby';
+
+import Badge from 'react-bootstrap/Badge';
 
 import SEO from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 import MotionDiv from '../components/MotionDiv';
+import PostCard from '../components/PostCard';
 
 
 export const query = graphql`
@@ -15,11 +18,13 @@ export const query = graphql`
           slug
           frontmatter {
             title
-            date(formatString: "YYYY MMMM D0")
+            date(formatString: "YYYY MMMM Do")
             tags
+            image
           }
           excerpt(pruneLength: 200)
           id
+          timeToRead
         }
       }
     }
@@ -28,10 +33,11 @@ export const query = graphql`
 
 const TagPage = ({ pageContext, data }) => {
   const { tag } = pageContext;
-  const { edges, totalCount } = data.allMdx;
-  const tagHeader = `${totalCount} post${
-    totalCount === 1 ? '' : 's'
-  } tagged with "${tag}"`;
+  const { totalCount } = data.allMdx;
+  const posts = data.allMdx.edges;
+  const tagHeader = `
+    ${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"
+  `;
 
   const {
     title,
@@ -58,30 +64,20 @@ const TagPage = ({ pageContext, data }) => {
         twitterUsername={twitterUsername}
       />
       <MotionDiv>
-        <h1>{tagHeader}</h1>
-        {edges.map(({ node }) => {
-          const { slug, excerpt } = node;
-          const { title, date, tags } = node.frontmatter;
-
+        <h2>{tagHeader}</h2>
+        {posts.map(({node}) => {
+          const { date, image, title, tags } = node.frontmatter;
+          const { slug, excerpt, timeToRead } = node;
           return (
-            <div className={'mb-4 p-2 card shadow rounded text-dark'} key={slug}>
-              <Link to={`/${slug}`}>
-                <h3>{title}</h3>
-              </Link>
-
-              <p>{date}</p>
-                <span> ● Tag: </span>
-                {tags && (
-                  <>
-                    {tags.map((tag) => (
-                      <Link key={tag} to={`/tags/${tag}/`}>
-                        {tag}
-                      </Link>
-                    ))}
-                  </>
-                )}
-              <p>{excerpt}</p>
-            </div>
+            <PostCard 
+              slug={slug} 
+              date={date} 
+              postImageUrl={image} 
+              timeToRead={timeToRead}
+              title={title} 
+              excerpt={excerpt} 
+              tags={tags}
+            />
           );
         })}
       </MotionDiv>
