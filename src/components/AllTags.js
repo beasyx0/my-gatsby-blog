@@ -1,5 +1,5 @@
 import React from 'react';
-import { graphql, StaticQuery } from 'gatsby';
+import { graphql, StaticQuery, Link } from 'gatsby';
 
 
 const AllTags = () => {
@@ -18,7 +18,9 @@ const AllTags = () => {
         <div>
           {data.allMdx.group.map((obj)=>{
             return(
-              <p key={obj.fieldValue}>{obj.fieldValue}</p>
+              <Link key={obj.fieldValue} to={`/tags/${obj.fieldValue}/`}>
+                <span>{obj.fieldValue}</span>
+              </Link>
             );
           })}
         </div>

@@ -5,8 +5,7 @@ import { useSiteMetadata } from "../hooks/use-site-metadata";
 
 // import usePosts from '../hooks/use-posts';
 import MotionDiv from '../components/MotionDiv';
-
-import Dump from '../components/Dump';
+import formatDate from '../utils';
 
 
 export const query = graphql`
@@ -17,7 +16,7 @@ export const query = graphql`
         excerpt(pruneLength: 250)
         frontmatter {
           title
-          date(formatString: "YYYY MMMM Do")
+          date
           tags
         }
         slug
@@ -65,7 +64,7 @@ const IndexPage = ({data}) => {
     <MotionDiv>
       {data.allMdx.nodes.map(({ id, excerpt, frontmatter, slug }) => (
         <article key={id} className={'mb-4 p-2 card shadow rounded text-dark'}>
-            <p>{frontmatter.date}</p>
+            <p>{formatDate(frontmatter.date)}</p>
             <Link to={`/${slug}`}>
               <h1>{frontmatter.title}</h1>
             </Link>
@@ -73,7 +72,7 @@ const IndexPage = ({data}) => {
             {frontmatter.tags && (
               <>
                 {frontmatter.tags.map((tag)=>(
-                  <Link key={tag} to={`/tags/${tag.toLowerCase()}`}>
+                  <Link key={tag} to={`/tags/${tag}/`}>
                     <span>{tag}</span>
                   </Link>
                 ))}

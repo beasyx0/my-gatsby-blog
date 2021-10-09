@@ -2,9 +2,10 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import SEO from 'react-seo-component';
-import { useSiteMetadata } from '../hooks/use-site-metadata';
 
+import { useSiteMetadata } from '../hooks/use-site-metadata';
 import MotionDiv from '../components/MotionDiv';
+import formatDate from '../utils';
 
 // todo: get rid of excerpt
 export const query = graphql`
@@ -16,7 +17,7 @@ export const query = graphql`
       excerpt
       frontmatter {
         title
-        date(formatString: "YYYY MMMM Do")
+        date
         tags
       }
     }
@@ -31,6 +32,8 @@ const PostPage = ({ data }) => {
     excerpt,
     body, 
   } = data.mdx;
+
+  const dateForDisplay = formatDate(date);
 
   const {
     title: siteTitle,
@@ -56,12 +59,12 @@ const PostPage = ({ data }) => {
         siteLocale={siteLocale}
         twitterUsername={twitterUsername}
         author={authorName}
-        datePublished={date}
-        dateModified={new Date(Date.now()).toISOString()}
+        publishedDate={date}
+        modifiedDate={new Date(Date.now()).toISOString()}
       />
       <MotionDiv>
         <article>
-          <p>{date}</p>
+          <p>{dateForDisplay}</p>
           <h1>{title}</h1>
           {tags && (
             <>
