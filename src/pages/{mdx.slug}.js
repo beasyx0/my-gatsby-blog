@@ -4,7 +4,7 @@ import { MDXRenderer } from 'gatsby-plugin-mdx';
 import Seo from 'react-seo-component';
 
 import { useSiteMetadata } from '../hooks/use-site-metadata';
-import MotionDiv from '../components/MotionDiv';
+import AnimatePage from '../components/AnimatePage';
 import formatDate from '../utils';
 
 // todo: get rid of excerpt
@@ -63,7 +63,7 @@ const PostPage = ({ data }) => {
         publishedDate={date}
         modifiedDate={new Date(Date.now()).toISOString()}
       />
-      <MotionDiv>
+      <AnimatePage>
         <article>
           <p>{dateForDisplay}</p>
           <h1>{title}</h1>
@@ -78,7 +78,7 @@ const PostPage = ({ data }) => {
           )}
           <MDXRenderer>{body}</MDXRenderer>
         </article>
-      </MotionDiv>
+      </AnimatePage>
     </>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 
-const MotionDiv = ({ children }) => {
+const AnimatePage = ({ children }) => {
   return(
     <motion.div
       initial={{
@@ -29,4 +29,4 @@ const MotionDiv = ({ children }) => {
   );
 }
 
-export default MotionDiv;
+export default AnimatePage;

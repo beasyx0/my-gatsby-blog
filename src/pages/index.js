@@ -4,7 +4,7 @@ import Seo from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 
 // import usePosts from '../hooks/use-posts';
-import MotionDiv from '../components/MotionDiv';
+import AnimatePage from '../components/AnimatePage';
 import PostCard from '../components/PostCard';
 
 
@@ -65,7 +65,7 @@ const IndexPage = ({data}) => {
         twitterUsername={twitterUsername}
         author={authorName}
       />
-      <MotionDiv>
+      <AnimatePage>
         {posts.map((post) => {
           const { slug, excerpt, timeToRead } = post;
           const { date, title, tags, image } = post.frontmatter;
@@ -81,7 +81,7 @@ const IndexPage = ({data}) => {
             />
           );
         })}
-      </MotionDiv>
+      </AnimatePage>
     </>
   );
 }

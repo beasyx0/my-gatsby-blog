@@ -3,7 +3,7 @@ import { graphql } from 'gatsby';
 
 import Seo from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
-import MotionDiv from '../components/MotionDiv';
+import AnimatePage from '../components/AnimatePage';
 import PostCard from '../components/PostCard';
 
 
@@ -62,7 +62,7 @@ const TagPage = ({ pageContext, data }) => {
         siteLocale={siteLocale}
         twitterUsername={twitterUsername}
       />
-      <MotionDiv>
+      <AnimatePage>
         <h2>{tagHeader}</h2>
         {posts.map(({node}) => {
           const { date, image, title, tags } = node.frontmatter;
@@ -79,7 +79,7 @@ const TagPage = ({ pageContext, data }) => {
             />
           );
         })}
-      </MotionDiv>
+      </AnimatePage>
     </>
   );
 }

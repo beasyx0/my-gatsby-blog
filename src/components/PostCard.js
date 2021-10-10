@@ -5,6 +5,7 @@ import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 
 import { useAppState } from '../Context';
+import ShareButtons from './ShareButtons';
 
 
 const PostCard = (postDetails) => {
@@ -21,13 +22,15 @@ const PostCard = (postDetails) => {
     tags, 
   } = postDetails;
 
+  const shareUrl = window.location.href + slug;
+
   return(
     <Card key={slug} className={'mb-4 p-2 bg-transparent shadow'}>
-      <Card.Img variant="top" src={postImageUrl} />
+      <Card.Img variant="top" src={postImageUrl} className={'mb-0'} />
       <Card.Body>
-        <p className={'m-0'}>
+        <small className={'m-0 text-secondary'}>
           {date} | {timeToRead} min read
-        </p>
+        </small>
         <Card.Title>
           <Link to={`/${slug}`}>
             <h1>{title}</h1>
@@ -39,18 +42,26 @@ const PostCard = (postDetails) => {
         {tags && (
           <ul className={'m-0 list-unstyled'}>
             {tags.map((tag) => (
-              <Link key={tag} to={`/tags/${tag}/`}>
-                <li className={'m-1 d-inline-block shadow'}>
-                  <Badge bg={state.themeChoice}>
+              <li className={'m-1 d-inline-block'}>
+                <Link key={tag} to={`/tags/${tag}/`}>
+                  <Badge 
+                    bg={state.themeChoice} 
+                    className={'scale-on-hover shadow border border-primary rounded'}
+                  >
                     <small className={'text-primary'}>
                       {tag}
                     </small>
                   </Badge>
-                </li>
-              </Link>
+                </Link>
+              </li>
             ))}
           </ul>
         )}
+        <ShareButtons
+          urlToShare={shareUrl} 
+          titleToShare={title} 
+          tags={tags}
+        />
       </Card.Body>
     </Card>      
   );
