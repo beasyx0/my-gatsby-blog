@@ -1,11 +1,10 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import SEO from "react-seo-component";
+import Seo from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 
 // import usePosts from '../hooks/use-posts';
 import MotionDiv from '../components/MotionDiv';
-import formatDate from '../utils';
 import PostCard from '../components/PostCard';
 
 
@@ -54,7 +53,7 @@ const IndexPage = ({data}) => {
 
   return(
     <>
-      <SEO
+      <Seo
         title={`Home`}
         titleTemplate={title}
         titleSeperator={'-'}

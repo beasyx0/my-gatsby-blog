@@ -1,9 +1,7 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 
-import Badge from 'react-bootstrap/Badge';
-
-import SEO from "react-seo-component";
+import Seo from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 import MotionDiv from '../components/MotionDiv';
 import PostCard from '../components/PostCard';
@@ -32,12 +30,6 @@ export const query = graphql`
 `
 
 const TagPage = ({ pageContext, data }) => {
-  const { tag } = pageContext;
-  const { totalCount } = data.allMdx;
-  const posts = data.allMdx.edges;
-  const tagHeader = `
-    ${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"
-  `;
 
   const {
     title,
@@ -48,11 +40,18 @@ const TagPage = ({ pageContext, data }) => {
     twitterUsername,
   } = useSiteMetadata();
 
+  const { tag } = pageContext;
+  const { totalCount } = data.allMdx;
+  const posts = data.allMdx.edges;
+  const tagHeader = `
+    ${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"
+  `;
+
   const pageDescription = `A list of blog posts tagged with ${tag}`
 
   return(
     <>
-      <SEO
+      <Seo
         title={`Tag Detail`}
         titleTemplate={title}
         titleSeperator={'-'}

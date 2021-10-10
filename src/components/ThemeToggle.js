@@ -3,15 +3,21 @@ import { ThemeToggler } from 'gatsby-plugin-dark-mode';
 
 import {FaSun, FaMoon} from 'react-icons/fa';
 
+import { useAppState, useAppDispatch } from '../Context';
+
 
 const ThemeToggle = () => {
+
+  const dispatch = useAppDispatch();
 
   const handleClick = (e, theme, toggleTheme) => {
     e.preventDefault();
     if (theme === 'light') {
-      toggleTheme('dark')
+      toggleTheme('dark');
+      dispatch({ type: 'SWITCH_THEME', themeChoice: 'dark' });
     } else {
-      toggleTheme('light')
+      toggleTheme('light');
+      dispatch({ type: 'SWITCH_THEME', themeChoice: 'light' });
     }
   }
 

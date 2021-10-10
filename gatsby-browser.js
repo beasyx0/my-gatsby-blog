@@ -1,14 +1,16 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-import './root-styles.css';
-
-import rootWrapper from "./root-wrapper";
-
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './root-styles.css';
 import { MDXProvider } from '@mdx-js/react';
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import duotoneLite from 'prism-react-renderer/themes/duotoneLight';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
+import {AnimatePresence} from 'framer-motion';
+
+// import rootWrapper from "./root-wrapper";
+import { AppContextProvider } from './src/Context';
+import Layout from './src/components/Layout';
+import { useAppState } from './src/Context';
 
 
 /* eslint-disable */
@@ -16,7 +18,8 @@ const component = {
   pre: props => {
     const className = props.children.props.className || '';
     const matches = className.match(/language-(?<lang>.*)/);
-    const userThemeChoice = window.localStorage.getItem('theme') === 'dark' ? duotoneDark : duotoneLite
+    const context = useAppState();
+    const userThemeChoice = context.themeChoice === 'dark' ? duotoneDark : duotoneLite
     return (
       <Highlight
         {...defaultProps}
@@ -43,12 +46,29 @@ const component = {
     );
   },
 };
+
+export const wrapPageElement = ({ element }) => {
+  return (
+    <Layout>
+      <MDXProvider components={component}>
+        <AnimatePresence exitBeforeEnter>
+          {element}
+        </AnimatePresence>
+      </MDXProvider>
+    </Layout>
+  );
+}
+
 export const wrapRootElement = ({ element }) => {
-  return <MDXProvider components={component}>{element}</MDXProvider>;
+  return (
+    <AppContextProvider>
+      {element}
+    </AppContextProvider>
+  );
 };
 
-export const wrapPageElement = rootWrapper;
 
+// export const wrapPageElement = rootWrapper;
 
 // export const shouldUpdateScroll = ({
 //   routerProps: { location },

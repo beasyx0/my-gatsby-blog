@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
 import { MDXRenderer } from 'gatsby-plugin-mdx';
-import SEO from 'react-seo-component';
+import Seo from 'react-seo-component';
 
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import MotionDiv from '../components/MotionDiv';
@@ -26,14 +26,6 @@ export const query = graphql`
 
 // single post
 const PostPage = ({ data }) => {
-  const { 
-    slug,
-    frontmatter: { title, date, tags },
-    excerpt,
-    body, 
-  } = data.mdx;
-
-  const dateForDisplay = formatDate(date);
 
   const {
     title: siteTitle,
@@ -45,9 +37,18 @@ const PostPage = ({ data }) => {
     authorName
   } = useSiteMetadata();
 
+  const { 
+    slug,
+    frontmatter: { title, date, tags },
+    excerpt,
+    body, 
+  } = data.mdx;
+
+  const dateForDisplay = formatDate(date);
+
   return(
     <>
-      <SEO
+      <Seo
         title={`Post Detail`}
         titleTemplate={siteTitle}
         titleSeperator={'-'}

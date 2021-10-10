@@ -4,10 +4,22 @@ import { Link } from 'gatsby';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 
+import { useAppState } from '../Context';
+
 
 const PostCard = (postDetails) => {
 
-  const { slug, date, postImageUrl, timeToRead, title, excerpt, tags } = postDetails;
+  const state = useAppState();
+
+  const { 
+    slug, 
+    date, 
+    postImageUrl, 
+    timeToRead, 
+    title, 
+    excerpt, 
+    tags, 
+  } = postDetails;
 
   return(
     <Card key={slug} className={'mb-4 p-2 bg-transparent shadow'}>
@@ -28,8 +40,8 @@ const PostCard = (postDetails) => {
           <ul className={'m-0 list-unstyled'}>
             {tags.map((tag) => (
               <Link key={tag} to={`/tags/${tag}/`}>
-                <li className={'m-1 d-inline-block'}>
-                  <Badge bg="dark">
+                <li className={'m-1 d-inline-block shadow'}>
+                  <Badge bg={state.themeChoice}>
                     <small className={'text-primary'}>
                       {tag}
                     </small>
