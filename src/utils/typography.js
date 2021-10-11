@@ -5,7 +5,7 @@ const typography = new Typography({
   baseLineHeight: 1.45,
   googleFonts: [
     {
-      name: "Playfair Display",
+      name: "Merriweather",
       styles: ["800"],
     },
     {
@@ -13,7 +13,7 @@ const typography = new Typography({
       styles: ["400"]
     }
   ],
-  headerFontFamily: ["Playfair Display", "serif"],
+  headerFontFamily: ["Merriweather", "serif"],
   bodyFontFamily: ["Roboto", "sans-serif"]
 });
 

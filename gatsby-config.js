@@ -1,3 +1,6 @@
+require("dotenv").config({
+  path: `.env`,
+})
 const siteMetadata = {
   title: `My Gatsby Blog`,
   description: `This is my coding blog.`,
@@ -46,6 +49,13 @@ module.exports = {
       resolve: "gatsby-plugin-typography",
       options: {
         pathToConfigModule: "src/utils/typography.js"
+      }
+    },
+    {
+      resolve: 'gatsby-plugin-mailchimp',
+      options: {
+        endpoint: process.env.MAILCHIMP_ENDPOINT,
+        timeout: 3500,
       }
     },
   ],

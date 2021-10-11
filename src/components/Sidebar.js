@@ -5,6 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import AllTags from './AllTags';
+import NewsletterSignup from './NewsletterSignup';
 
 
 const Sidebar = ({ children }) => {
@@ -14,6 +15,7 @@ const Sidebar = ({ children }) => {
         <Row>
           <Col>
             <AllTags />
+            <NewsletterSignup />
           </Col>
         </Row>
       </Container>

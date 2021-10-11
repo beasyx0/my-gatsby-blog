@@ -20,11 +20,11 @@ const AllTags = () => {
         }
       `}
       render={data => (
-        <div>
+        <div className={'mb-4'}>
           <h5>Tags:</h5>
           {data.allMdx.group.map((obj)=>{
             return(
-              <Link key={obj.fieldValue} to={`/tags/${obj.fieldValue}/`} className={'mx-2 my-4'}>
+              <Link key={obj.fieldValue} to={`/tags/${obj.fieldValue}/`} className={'m-2'} style={{ lineHeight: '40px' }}>
                 <Badge 
                   bg={state.themeChoice} 
                   className={'scale-on-hover shadow border border-primary rounded text-primary'}
