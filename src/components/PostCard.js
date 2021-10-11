@@ -33,11 +33,13 @@ const PostCard = (postDetails) => {
         </small>
         <Card.Title>
           <Link to={`/${slug}`}>
-            <h1>{title}</h1>
+            <h1 className={'h2'}>{title}</h1>
           </Link>
         </Card.Title>
         <Card.Text>
+          <small>
           {excerpt}
+          </small>
         </Card.Text>
         {tags && (
           <ul className={'m-0 list-unstyled'}>
