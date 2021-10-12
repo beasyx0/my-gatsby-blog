@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import _ from 'lodash';
 
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
@@ -33,7 +34,7 @@ const PostCard = (postDetails) => {
         </small>
         <Card.Title>
           <Link to={`/${slug}`}>
-            <h1 className={'h2'}>{title}</h1>
+            <h1 className={'h3'}>{title}</h1>
           </Link>
         </Card.Title>
         <Card.Text>
@@ -45,7 +46,7 @@ const PostCard = (postDetails) => {
           <ul className={'m-0 list-unstyled'}>
             {tags.map((tag) => (
               <li className={'m-1 d-inline-block'}>
-                <Link key={tag} to={`/tags/${tag}/`}>
+                <Link key={tag} to={`/tags/${_.kebabCase(tag)}/`}>
                   <Badge 
                     bg={state.themeChoice} 
                     className={'scale-on-hover shadow border border-primary rounded'}

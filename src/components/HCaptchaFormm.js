@@ -99,7 +99,7 @@ const HCaptchaFormm = () => {
             />
           </Form.Group>
 
-          <Form.Group>
+{/*          <Form.Group>*/}
             <HCaptcha
               sitekey={HCaptchaSiteKey}
               onVerify={setToken}
@@ -108,7 +108,7 @@ const HCaptchaFormm = () => {
               ref={captchaRef}
               theme={'dark'}
             />
-          </Form.Group>
+{/*          </Form.Group>*/}
 
           <Form.Group className={'mb-3'}>
             <Button 

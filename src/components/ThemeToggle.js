@@ -26,13 +26,13 @@ const ThemeToggle = () => {
       {({ theme, toggleTheme }) => (
         <>
           {theme === 'dark' && (
-            <a href="#" onClick={(e)=>handleClick(e, theme, toggleTheme)}>
-              <FaSun className={'text-warning h5'} />
+            <a href="/" onClick={(e)=>handleClick(e, theme, toggleTheme)}>
+              <FaSun className={'text-warning h5 scale-on-hover'} />
             </a>
           )}
           {theme === 'light' && (
-            <a href="#" onClick={(e)=>handleClick(e, theme, toggleTheme)}>
-              <FaMoon className={'text-warning h5'} />
+            <a href="/" onClick={(e)=>handleClick(e, theme, toggleTheme)}>
+              <FaMoon className={'text-warning h5 scale-on-hover'} />
             </a>
           )}
         </>

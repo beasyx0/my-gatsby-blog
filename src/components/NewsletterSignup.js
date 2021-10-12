@@ -86,13 +86,11 @@ const NewsletterSignup = () => {
 
   return(
     <Card className={'p-1 bg-transparent shadow'}>
-
       <Card.Body>
         <Card.Title>            
-          <h3>Sign up for the newsletter</h3>
+          <h3 className={'h5'}>Sign up for the newsletter</h3>
         </Card.Title >
         <Form onSubmit={handleSubmit}>
-          
           <Form.Group>
             <Form.Text>
               Get notified of new posts. Don't worry, your email 
@@ -120,7 +118,7 @@ const NewsletterSignup = () => {
                 ref={websiteUrlInputRef}
               />
           </Form.Group>
-          <Form.Group className={'mb-3'}>
+          <Form.Group>
             <Button 
               id="newsletterButton" 
               variant="primary" 
@@ -145,11 +143,10 @@ const NewsletterSignup = () => {
             />
 
             <small 
-              className={`d-inline ${isError && 'text-danger'} ${isSuccess && 'text-success'}`}
+              className={`${message ? 'd-inline' : 'd-none'} ${isError && 'text-danger'} ${isSuccess && 'text-success'}`}
             >
               {message}
             </small>
-
           </Form.Group>
         </Form>
       </Card.Body>
