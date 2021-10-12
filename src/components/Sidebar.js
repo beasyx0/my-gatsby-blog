@@ -6,6 +6,8 @@ import Col from 'react-bootstrap/Col';
 
 import AllTags from './AllTags';
 import NewsletterSignup from './NewsletterSignup';
+// import HCaptchaForm from './HCaptchaForm';
+// import HCaptchaFormm from './HCaptchaFormm';
 
 
 const Sidebar = ({ children }) => {

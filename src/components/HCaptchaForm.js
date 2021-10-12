@@ -1,52 +1,39 @@
-import React, { useState, useRef } from 'react';
-
+import React, { useState, useEffect, useRef } from 'react';
 import validator from 'validator';
-
 import addToMailchimp from 'gatsby-plugin-mailchimp';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 import Loader from 'react-loader-spinner';
-
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-
 import { FaCheck, FaTimes } from 'react-icons/fa';
-
-import NewsletterSvg from '../../svg/undraw_Newsletter_re_wrob.svg';
 
 
 // todo: add validation to verify that it's an email being entered
-const NewsletterSignup = () => {
+const HCaptchaForm = () => {
 
   const [email, setEmail] = useState('');
+  const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState('');
-  const listFields = {'MMERGE6': window.location.href};
   const [buttonDisabled, setButtonDisabled] = useState(true);
-  const emailImputRef = useRef(null);
+  const captchaRef = useRef(null);
+  const hCaptchaSiteKey = process.env.GATSBY_HCAPTCHA_SITE_KEY;
+  const mailChimpListFields = {'MMERGE6': window.location.href};
 
   const handleReset = () => {
-    emailImputRef.current.value = '';
+    Array.from(document.querySelectorAll("input")).forEach(
+      input => (input.value = "")
+    );
     setEmail('');
-    setButtonDisabled(true);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const result = await addToMailchimp(email, listFields);
-    if (result.result === 'success') {
-      setIsError(false);
-      setIsSuccess(true);
-      setMessage('Thank you!');
-      handleReset();
-    } else {
-      setIsError(true);
-      setIsSuccess(false);
-      setMessage('Something went wrong, please try again.');
-    }
+    setToken(null);
     setLoading(false);
-  }
+    setIsError(false);
+    setButtonDisabled(true);
+    captchaRef.current.resetCaptcha();
+  };
 
   const handleOnClick = (e) => {
     setLoading(true);
@@ -61,32 +48,54 @@ const NewsletterSignup = () => {
       setIsError(false);
       setIsSuccess(true);
       setMessage('');
-      setButtonDisabled(false);
     } else {
       setIsError(true);
       setIsSuccess(false);
       setMessage('');
-      setButtonDisabled(true);
     }
   }
 
-  const svgStyle = {
-    maxWidth: '350px',
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    captchaRef.current.execute();
+    // if (token) {
+    //   const result =  await addToMailchimp(email, mailChimpListFields);
+    //   if (result.result === 'success') {
+    //     setIsError(false);
+    //     setIsSuccess(true);
+    //     setMessage('Thank you!');
+    //     handleReset();
+    //   } else {
+    //     setIsError(true);
+    //     setIsSuccess(false);
+    //     setMessage('Something went wrong, please try again.');
+    //   }
+    // }
   }
 
-  return(
-    <Card className={'p-3 bg-transparent shadow'}>
-      <div className={'text-center'}>
-        <NewsletterSvg className={'img-fluid'} style={svgStyle} />
-      </div>
+  const onExpire = () => {
+    alert("hCaptcha Token Expired");
+  };
 
+  const onError = (err) => {
+    alert(`hCaptcha Error: ${err}`);
+  };
+
+  useEffect(() => {
+    if (token) {
+      setButtonDisabled(false);
+    }    
+  }, [token]);
+
+  return(
+    <Card className={'bg-transparent shadow'}>
       <Card.Body>
         <Card.Title>
           <h3>Sign up for the newsletter</h3>
         </Card.Title >
         <Form onSubmit={handleSubmit}>
           
-          <Form.Group className={''}>
+          <Form.Group>
             <Form.Text>
               Get notified of new posts. Don't worry, your email 
               will never be shared with anyone else.
@@ -96,7 +105,16 @@ const NewsletterSignup = () => {
               placeholder="Enter email" 
               onChange={handleOnChange} 
               className={'mt-3 mb-3 required'} 
-              ref={emailImputRef}
+            />
+          </Form.Group>
+          <Form.Group>
+            <HCaptcha
+              sitekey={hCaptchaSiteKey}
+              onVerify={setToken}
+              onError={onError}
+              onExpire={onExpire}
+              ref={captchaRef}
+              theme={'dark'}
             />
           </Form.Group>
           <Form.Group className={'mb-3'}>
@@ -114,14 +132,14 @@ const NewsletterSignup = () => {
               color="#00BFFF"
               height={35}
               width={35}
-              className={`mx-3 ${loading ? 'd-inline' : 'd-none'}`}
+              className={`mx-2 ${loading ? 'd-inline' : 'd-none'}`}
             />
             <FaTimes 
-              className={`mx-3 text-danger ${isError ? 'd-inline' : 'd-none'}`} 
+              className={`mx-2 text-danger ${isError ? 'd-inline' : 'd-none'}`} 
             />
             
             <FaCheck 
-              className={`mx-3 text-success ${isSuccess ? 'd-inline' : 'd-none'}`} 
+              className={`mx-2 text-success ${isSuccess ? 'd-inline' : 'd-none'}`} 
             />
 
             <small 
@@ -137,4 +155,4 @@ const NewsletterSignup = () => {
   );
 }
 
-export default NewsletterSignup;
+export default HCaptchaForm;
