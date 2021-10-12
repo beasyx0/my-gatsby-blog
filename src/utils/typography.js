@@ -13,7 +13,7 @@ const typography = new Typography({
       styles: ["400"]
     }
   ],
-  headerFontFamily: ["Merriweather", "serif"],
+  // headerFontFamily: ["Merriweather", "serif"],
   bodyFontFamily: ["Roboto", "sans-serif"]
 });
 

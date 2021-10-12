@@ -11,10 +11,7 @@ import Button from 'react-bootstrap/Button';
 
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
-import NewsletterSvg from '../../svg/undraw_Newsletter_re_wrob.svg';
 
-
-// todo: add validation to verify that it's an email being entered
 const NewsletterSignup = () => {
 
   const [email, setEmail] = useState('');
@@ -22,36 +19,42 @@ const NewsletterSignup = () => {
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [message, setMessage] = useState('');
-  const listFields = {'MMERGE6': window.location.href};
   const [buttonDisabled, setButtonDisabled] = useState(true);
+  const [isWebsiteUrlInput, setIsWebsiteUrlInput] = useState(false); // honey
   const emailImputRef = useRef(null);
+  const websiteUrlInputRef = useRef(null);
+  const listFields = {'MMERGE6': window.location.href};
 
   const handleReset = () => {
     emailImputRef.current.value = '';
+    websiteUrlInputRef.current.value = '';
     setEmail('');
     setButtonDisabled(true);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const result = await addToMailchimp(email, listFields);
-    if (result.result === 'success') {
-      setIsError(false);
-      setIsSuccess(true);
-      setMessage('Thank you!');
-      handleReset();
-    } else {
-      setIsError(true);
-      setIsSuccess(false);
-      setMessage('Something went wrong, please try again.');
-    }
-    setLoading(false);
-  }
-
-  const handleOnClick = (e) => {
     setLoading(true);
     setIsSuccess(false);
     setButtonDisabled(true);
+    if (isWebsiteUrlInput) {
+      setIsError(false);
+      setIsSuccess(true);
+      handleReset();
+    } else {
+      const result = await addToMailchimp(email, listFields);
+      if (result.result === 'success') {
+        setIsError(false);
+        setIsSuccess(true);
+        setMessage('Thank you!');
+        handleReset();
+      } else {
+        setIsError(true);
+        setIsSuccess(false);
+        setMessage('Something went wrong, please try again.');
+      }
+    }
+    setLoading(false);
   }
 
   const handleOnChange = (e) => {
@@ -70,23 +73,27 @@ const NewsletterSignup = () => {
     }
   }
 
-  const svgStyle = {
-    maxWidth: '350px',
+  const handleWebsiteUrlInput = (e) => {
+    e.preventDefault();
+    setIsWebsiteUrlInput(true);
+  }
+
+  // honey
+  const websiteUrlStyles = {
+    position: 'absolute',
+    left: '-9999px',
   }
 
   return(
-    <Card className={'p-3 bg-transparent shadow'}>
-      <div className={'text-center'}>
-        <NewsletterSvg className={'img-fluid'} style={svgStyle} />
-      </div>
+    <Card className={'p-1 bg-transparent shadow'}>
 
       <Card.Body>
-        <Card.Title>
+        <Card.Title>            
           <h3>Sign up for the newsletter</h3>
         </Card.Title >
         <Form onSubmit={handleSubmit}>
           
-          <Form.Group className={''}>
+          <Form.Group>
             <Form.Text>
               Get notified of new posts. Don't worry, your email 
               will never be shared with anyone else.
@@ -99,12 +106,25 @@ const NewsletterSignup = () => {
               ref={emailImputRef}
             />
           </Form.Group>
+          <Form.Group style={websiteUrlStyles}>
+            <Form.Label for="websiteUrl">
+              Your website
+            </Form.Label>
+              <Form.Control
+                type="text" 
+                id="websiteUrl" 
+                name="url" 
+                tabindex="-1" 
+                autocomplete="no" 
+                onChange={handleWebsiteUrlInput} 
+                ref={websiteUrlInputRef}
+              />
+          </Form.Group>
           <Form.Group className={'mb-3'}>
             <Button 
               id="newsletterButton" 
               variant="primary" 
               type="submit" 
-              onClick={handleOnClick}
               className={buttonDisabled && 'disabled'}
             >
               Submit
