@@ -4,7 +4,7 @@ import { graphql } from 'gatsby';
 import Seo from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 import AnimatePage from '../components/AnimatePage';
-import PostCard from '../components/PostCard';
+import PostList from '../components/PostList';
 
 
 export const query = graphql`
@@ -42,7 +42,14 @@ const TagPage = ({ pageContext, data }) => {
 
   const { tag } = pageContext;
   const { totalCount } = data.allMdx;
-  const posts = data.allMdx.edges;
+  const nodes = data.allMdx.edges;
+  const posts = [];
+
+  // PostList takes an array of posts
+  nodes.forEach((node)=>{
+    posts.push(node.node);
+  })
+
   const tagHeader = `
     ${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"
   `;
@@ -64,21 +71,7 @@ const TagPage = ({ pageContext, data }) => {
       />
       <AnimatePage>
         <h2>{tagHeader}</h2>
-        {posts.map(({node}) => {
-          const { date, image, title, tags } = node.frontmatter;
-          const { slug, excerpt, timeToRead } = node;
-          return (
-            <PostCard 
-              slug={slug} 
-              date={date} 
-              postImageUrl={image} 
-              timeToRead={timeToRead}
-              title={title} 
-              excerpt={excerpt} 
-              tags={tags}
-            />
-          );
-        })}
+        <PostList data={posts} />
       </AnimatePage>
     </>
   );

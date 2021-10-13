@@ -18,7 +18,7 @@ const PostList = (postsToDisplay) => {
           const { slug, excerpt, timeToRead } = post;
           const { date, title, tags, image } = post.frontmatter;
           return(
-            <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+            <Col xs={12} sm={12} md={12} lg={12} xl={6}>
               <PostCard 
                 slug={slug} 
                 date={date} 
