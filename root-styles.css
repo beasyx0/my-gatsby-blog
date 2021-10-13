@@ -1,15 +1,30 @@
-body {
-  --bg: #fff;
-  --primaryText: #000;
-  --secondaryText: #777;
-  background-color: var(--bg);
-}body.dark {
+/*body {
   -webkit-font-smoothing: antialiased;
   --bg: #212e30;
   --primaryText: #e8e8e8;
   --secondaryText: #9d9d9d;
+  background-color: var(--bg)!Important;
   color: #f8f9fa;
 }
+
+.light-mode {
+  --bg: #fff;
+  --primaryText: #000;
+  --secondaryText: #777;
+  background-color: var(--bg);
+}*/
+
+body.light-mode {
+  background-color: #fff;
+  color: #333;
+  transition: background-color 0.5s ease;
+}
+body.dark-mode {
+  background-color: #1a1919;
+  color: #999;
+  transition: background-color 0.5s ease;
+}
+
 a {
   text-decoration: none;
 }

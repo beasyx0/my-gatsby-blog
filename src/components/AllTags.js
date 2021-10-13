@@ -1,16 +1,15 @@
 import React from 'react';
 import { graphql, StaticQuery, Link } from 'gatsby';
 import _ from 'lodash';
+import useDarkMode from 'use-dark-mode';
 
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 
-import { useAppState } from '../Context';
-
 
 const AllTags = () => {
 
-  const state = useAppState();
+  const darkMode = useDarkMode();
 
   return(
     <StaticQuery
@@ -38,10 +37,10 @@ const AllTags = () => {
                   className={'m-2'} style={{ lineHeight: '40px' }}
                 >
                   <Badge 
-                    bg={state.themeChoice} 
+                    bg={`${darkMode.value ? 'dark' : 'light'}`} 
                     className={`(
                       shadow-sm border ${(
-                        state.themeChoice === 'dark' && 'border-secondary'
+                        darkMode.value && 'border-secondary'
                       )} rounded text-primary scale-on-hover
                     )`}
                   >

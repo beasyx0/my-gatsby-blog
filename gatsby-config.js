@@ -17,7 +17,7 @@ module.exports = {
   siteMetadata,
   plugins: [
     `gatsby-plugin-react-helmet`,
-    `gatsby-plugin-dark-mode`,
+    `gatsby-plugin-use-dark-mode`,
     `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-mdx`,

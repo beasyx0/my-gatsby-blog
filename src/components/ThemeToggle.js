@@ -1,43 +1,33 @@
 import React from 'react';
-import { ThemeToggler } from 'gatsby-plugin-dark-mode';
-
+// import { ThemeToggler } from 'gatsby-plugin-dark-mode';
+import useDarkMode from 'use-dark-mode';
 import {FaSun, FaMoon} from 'react-icons/fa';
-
-import { useAppState, useAppDispatch } from '../Context';
 
 
 const ThemeToggle = () => {
 
-  const dispatch = useAppDispatch();
+  const darkMode = useDarkMode();
 
-  const handleClick = (e, theme, toggleTheme) => {
+  const handleThemeChange = (e) => {
     e.preventDefault();
-    if (theme === 'light') {
-      toggleTheme('dark');
-      dispatch({ type: 'SWITCH_THEME', themeChoice: 'dark' });
-    } else {
-      toggleTheme('light');
-      dispatch({ type: 'SWITCH_THEME', themeChoice: 'light' });
-    }
+    darkMode.toggle();
   }
 
   return(
-    <ThemeToggler>
-      {({ theme, toggleTheme }) => (
-        <>
-          {theme === 'dark' && (
-            <a href="/" onClick={(e)=>handleClick(e, theme, toggleTheme)}>
-              <FaSun className={'text-warning h5 scale-on-hover'} />
-            </a>
-          )}
-          {theme === 'light' && (
-            <a href="/" onClick={(e)=>handleClick(e, theme, toggleTheme)}>
-              <FaMoon className={'text-warning h5 scale-on-hover'} />
-            </a>
-          )}
-        </>
-      )}
-    </ThemeToggler>
+    <div>
+      <>
+        {darkMode.value && (
+          <a href="/" onClick={handleThemeChange}>
+            <FaSun className={'text-warning h5 scale-on-hover'} />
+          </a>
+        )}
+        {!darkMode.value && (
+          <a href="/" onClick={handleThemeChange}>
+            <FaMoon className={'text-warning h5 scale-on-hover'} />
+          </a>
+        )}
+      </>
+    </div>
   );
 }
 

@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'gatsby';
 import _ from 'lodash';
 
+import useDarkMode from 'use-dark-mode';
+
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 
@@ -11,7 +13,7 @@ import ShareButtons from './ShareButtons';
 
 const PostCard = (postDetails) => {
 
-  const state = useAppState();
+  const darkMode = useDarkMode();
 
   const { 
     slug, 
@@ -48,10 +50,13 @@ const PostCard = (postDetails) => {
               <li className={'m-1 d-inline-block'}>
                 <Link key={tag} to={`/tags/${_.kebabCase(tag)}/`}>
                   <Badge 
-                    bg={state.themeChoice} 
+                    bg={`${darkMode.value ? 'dark' : 'light'}`} 
                     className={`(
-                      shadow-sm border ${state.themeChoice === 'dark' && 'border-secondary'} rounded scale-on-hover
+                      shadow-sm border ${darkMode.value && 'border-secondary'} rounded scale-on-hover
                     )`}
+                    style={{
+                      transition: 'background-color 0.5s ease'
+                    }}
                   >
                     <small className={'text-primary'}>
                       {tag}
