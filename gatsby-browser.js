@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './root-styles.css';
 import { MDXProvider } from '@mdx-js/react';
+import useDarkMode from 'use-dark-mode';
 import {
   LiveEditor,
   LiveError,
@@ -18,7 +19,6 @@ import theme from 'prism-react-renderer/themes/nightOwl';
 import { AppContextProvider } from './src/Context';
 import Layout from './src/components/Layout';
 import CopyButton from './src/components/CopyButton';
-import { useAppState } from './src/Context';
 
 
 /* eslint-disable */
@@ -32,11 +32,10 @@ const component = {
     const lang = matches && matches.groups && matches.groups.lang
                   ? matches.groups.lang
                   : ''
-    
-    const context = useAppState();
-    const userThemeChoice = context.themeChoice === 'dark' ? duotoneDark : duotoneLite;
 
-    
+    const darkMode = useDarkMode(true);
+
+    const currentThemeChoice = darkMode.value ? duotoneDark : duotoneLite;
 
     if (isReactLive) {
       return (
@@ -53,18 +52,20 @@ const component = {
         {...defaultProps}
         code={codeString}
         language={lang}
-        theme={userThemeChoice}
+        theme={currentThemeChoice}
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
-            <CopyButton codeToCopy={codeString} />
-            {tokens.map((line, i) => (
-              <div {...getLineProps({ line, key: i })}>
-                {line.map((token, key) => (
-                  <span {...getTokenProps({ token, key })} />
-                ))}
-              </div>
-            ))}
+            <div className={'p-2 border border-secondary'}>
+              <CopyButton codeToCopy={codeString} />
+              {tokens.map((line, i) => (
+                <div {...getLineProps({ line, key: i })}>
+                  {line.map((token, key) => (
+                    <span {...getTokenProps({ token, key })} />
+                  ))}
+                </div>
+              ))}
+            </div>
           </pre>
         )}
       </Highlight>

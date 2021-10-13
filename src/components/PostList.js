@@ -1,0 +1,38 @@
+import React from 'react';
+
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+
+import PostCard from './PostCard';
+
+
+const PostList = (postsToDisplay) => {
+
+  const posts = postsToDisplay.data;
+
+  return(
+    <Container className={'p-0'}>
+      <Row>
+        {posts.map((post) => {
+          const { slug, excerpt, timeToRead } = post;
+          const { date, title, tags, image } = post.frontmatter;
+          return(
+            <Col xs={12} sm={12} md={6} lg={6} xl={6}>
+              <PostCard 
+                slug={slug} 
+                date={date} 
+                postImageUrl={image} 
+                timeToRead={timeToRead}
+                title={title} 
+                excerpt={excerpt} 
+                tags={tags}
+              />
+            </Col>
+          );
+        })}
+      </Row>
+    </Container>
+  );
+}
+export default PostList;

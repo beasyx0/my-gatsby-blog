@@ -28,7 +28,7 @@ const PostCard = (postDetails) => {
   const shareUrl = window.location.href + slug;
 
   return(
-    <Card key={slug} className={'mb-4 p-2 bg-transparent shadow'}>
+    <Card key={slug} className={'mb-4 p-2 bg-transparent shadow post-card-scale-on-hover'}>
       <Card.Img variant="top" src={postImageUrl} className={'mb-0'} />
       <Card.Body>
         <small className={'m-0 text-secondary'}>
@@ -36,7 +36,7 @@ const PostCard = (postDetails) => {
         </small>
         <Card.Title>
           <Link to={`/${slug}`}>
-            <h1 className={'h3'}>{title}</h1>
+            <h1 className={'h4'}>{title}</h1>
           </Link>
         </Card.Title>
         <Card.Text>

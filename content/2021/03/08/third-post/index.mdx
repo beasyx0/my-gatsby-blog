@@ -29,6 +29,36 @@ eros. Ut lacinia eros a vehicula porttitor.
 
 And a code block:
 
-```js
-const wheeeeee = true;
+
+```jsx
+import useDarkMode from 'use-dark-mode';
+
+const ThemeToggle = () => {
+
+  const darkMode = useDarkMode();
+
+  const handleThemeChange = (e) => {
+    e.preventDefault();
+    darkMode.toggle();
+  }
+
+  return(
+    <div>
+      <>
+        {darkMode.value && (
+          <a href="/" onClick={handleThemeChange}>
+            <FaSun className={'text-warning h5 scale-on-hover'} />
+          </a>
+        )}
+        {!darkMode.value && (
+          <a href="/" onClick={handleThemeChange}>
+            <FaMoon className={'text-warning h5 scale-on-hover'} />
+          </a>
+        )}
+      </>
+    </div>
+  );
+}
+
+export default ThemeToggle;
 ```

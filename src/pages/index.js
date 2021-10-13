@@ -5,7 +5,7 @@ import { useSiteMetadata } from "../hooks/use-site-metadata";
 
 // import usePosts from '../hooks/use-posts';
 import AnimatePage from '../components/AnimatePage';
-import PostCard from '../components/PostCard';
+import PostList from '../components/PostList';
 
 
 export const query = graphql`
@@ -66,21 +66,7 @@ const IndexPage = ({data}) => {
         author={authorName}
       />
       <AnimatePage>
-        {posts.map((post) => {
-          const { slug, excerpt, timeToRead } = post;
-          const { date, title, tags, image } = post.frontmatter;
-          return(
-            <PostCard 
-              slug={slug} 
-              date={date} 
-              postImageUrl={image} 
-              timeToRead={timeToRead}
-              title={title} 
-              excerpt={excerpt} 
-              tags={tags}
-            />
-          );
-        })}
+        <PostList data={posts} />
       </AnimatePage>
     </>
   );
