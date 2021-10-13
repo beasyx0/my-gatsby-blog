@@ -2,37 +2,62 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './root-styles.css';
 import { MDXProvider } from '@mdx-js/react';
+import {
+  LiveEditor,
+  LiveError,
+  LivePreview,
+  LiveProvider,
+} from 'react-live'
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import duotoneLite from 'prism-react-renderer/themes/duotoneLight';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
 import {AnimatePresence} from 'framer-motion';
+import Button from 'react-bootstrap/Button';
+import theme from 'prism-react-renderer/themes/nightOwl';
 
-// import rootWrapper from "./root-wrapper";
 import { AppContextProvider } from './src/Context';
 import Layout from './src/components/Layout';
+import CopyButton from './src/components/CopyButton';
 import { useAppState } from './src/Context';
 
 
 /* eslint-disable */
 const component = {
+
   pre: props => {
+    const codeString = props.children.props.children.trim();
+    const isReactLive = props.children.props['react-live'];
     const className = props.children.props.className || '';
     const matches = className.match(/language-(?<lang>.*)/);
+    const lang = matches && matches.groups && matches.groups.lang
+                  ? matches.groups.lang
+                  : ''
+    
     const context = useAppState();
-    const userThemeChoice = context.themeChoice === 'dark' ? duotoneDark : duotoneLite
+    const userThemeChoice = context.themeChoice === 'dark' ? duotoneDark : duotoneLite;
+
+    
+
+    if (isReactLive) {
+      return (
+        <LiveProvider code={codeString} noInline={true} theme={theme}>
+          <LiveEditor />
+          <LiveError />
+          <LivePreview />
+        </LiveProvider>
+      )
+    }
+
     return (
       <Highlight
         {...defaultProps}
-        code={props.children.props.children.trim()}
-        language={
-          matches && matches.groups && matches.groups.lang
-            ? matches.groups.lang
-            : ''
-        }
+        code={codeString}
+        language={lang}
         theme={userThemeChoice}
       >
         {({ className, style, tokens, getLineProps, getTokenProps }) => (
           <pre className={className} style={style}>
+            <CopyButton codeToCopy={codeString} />
             {tokens.map((line, i) => (
               <div {...getLineProps({ line, key: i })}>
                 {line.map((token, key) => (

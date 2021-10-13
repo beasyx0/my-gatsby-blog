@@ -49,7 +49,9 @@ const PostCard = (postDetails) => {
                 <Link key={tag} to={`/tags/${_.kebabCase(tag)}/`}>
                   <Badge 
                     bg={state.themeChoice} 
-                    className={'scale-on-hover shadow border border-primary rounded'}
+                    className={`(
+                      shadow-sm border ${state.themeChoice === 'dark' && 'border-secondary'} rounded scale-on-hover
+                    )`}
                   >
                     <small className={'text-primary'}>
                       {tag}

@@ -9,7 +9,9 @@ import { useAppState } from '../Context';
 
 
 const AllTags = () => {
+
   const state = useAppState();
+
   return(
     <StaticQuery
       query={graphql`
@@ -30,10 +32,18 @@ const AllTags = () => {
             </Card.Title>
             {data.allMdx.group.map((obj)=>{
               return(
-                <Link key={obj.fieldValue} to={`/tags/${_.kebabCase(obj.fieldValue)}/`} className={'m-2'} style={{ lineHeight: '40px' }}>
+                <Link 
+                  key={obj.fieldValue} 
+                  to={`/tags/${_.kebabCase(obj.fieldValue)}/`} 
+                  className={'m-2'} style={{ lineHeight: '40px' }}
+                >
                   <Badge 
                     bg={state.themeChoice} 
-                    className={'scale-on-hover shadow border border-primary rounded text-primary'}
+                    className={`(
+                      shadow-sm border ${(
+                        state.themeChoice === 'dark' && 'border-secondary'
+                      )} rounded text-primary scale-on-hover
+                    )`}
                   >
                    {obj.fieldValue} {obj.totalCount}
                   </Badge>

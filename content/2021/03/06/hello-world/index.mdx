@@ -63,22 +63,12 @@ eros. Ut lacinia eros a vehicula porttitor.
 ![mdx logo](./gradient.jpg)
 
 
-```html
-    <div>this is a div</div>
-```
-
-
 ```python
-    class MyModel(models.Model):
-        date = models.DateTimeField(auto_now_add=true)
-        some_other_field = models.TextField()
 
-        def __str__(self):
-            return self.some_other_field
-```
+class MyModel(models.Model):
+    date = models.DateTimeField(auto_now_add=true)
+    some_other_field = models.TextField()
 
-```javascript
-    const myFunction = () => {
-        alert('yeehaw');
-    }
+    def __str__(self):
+        return self.some_other_field
 ```

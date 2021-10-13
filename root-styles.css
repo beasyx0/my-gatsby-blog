@@ -5,7 +5,7 @@ body {
   background-color: var(--bg);
 }body.dark {
   -webkit-font-smoothing: antialiased;
-  --bg: #222831;
+  --bg: #212e30;
   --primaryText: #e8e8e8;
   --secondaryText: #9d9d9d;
   color: #f8f9fa;
@@ -14,7 +14,7 @@ a {
   text-decoration: none;
 }
 .scale-on-hover:hover {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 .scale-on-hover:active {
   transform: scale(1);

@@ -5,7 +5,7 @@ import Seo from 'react-seo-component';
 
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import AnimatePage from '../components/AnimatePage';
-import formatDate from '../utils';
+import { formatDate } from '../utils';
 
 // todo: get rid of excerpt
 export const query = graphql`
