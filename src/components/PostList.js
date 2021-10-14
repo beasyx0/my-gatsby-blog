@@ -14,7 +14,7 @@ const PostList = ({ postsData, tagsData }) => {
       <Row>
         {postsData.map((post) => {
           const { slug, excerpt, timeToRead } = post;
-          const { date, title, tags, image } = post.frontmatter;
+          const { date, title, tags, cover, image } = post.frontmatter;
           return(
             <Col xs={12} sm={12} md={12} lg={12} xl={6}>
               <PostCard 
@@ -25,6 +25,7 @@ const PostList = ({ postsData, tagsData }) => {
                 title={title} 
                 excerpt={excerpt} 
                 tags={tags}
+                cover={cover} 
                 tagsWithCounts={tagsData} 
               />
             </Col>
@@ -34,4 +35,4 @@ const PostList = ({ postsData, tagsData }) => {
     </Container>
   );
 }
-export default PostList;
+export default PostList; 

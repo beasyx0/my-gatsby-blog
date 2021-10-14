@@ -1,6 +1,6 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-
+import {GatsbyImage, getImage} from 'gatsby-plugin-image';
 import Seo from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 import AnimatePage from '../components/AnimatePage';
@@ -13,15 +13,19 @@ export const query = graphql`
       totalCount
       edges {
         node {
-          slug
           frontmatter {
             title
             date(formatString: "MMMM Do, YYYY @ h:mm a")
             tags
-            image
+            cover {
+              publicURL
+              childImageSharp {
+                gatsbyImageData
+              }
+            }
           }
-          excerpt(pruneLength: 200)
-          id
+          slug
+          excerpt(pruneLength: 150)
           timeToRead
         }
       }

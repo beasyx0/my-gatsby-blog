@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'gatsby';
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import _ from 'lodash';
 
 import useDarkMode from 'use-dark-mode';
@@ -20,8 +21,12 @@ const PostCard = (
     title, 
     excerpt, 
     tags, 
+    cover,
     tagsWithCounts 
   }) => {
+
+
+  const postImage = getImage(cover);
 
   const darkMode = useDarkMode();
 
@@ -41,7 +46,7 @@ const PostCard = (
 
   return(
     <Card key={slug} className={'mb-4 p-2 bg-transparent shadow post-card-scale-on-hover'}>
-      <Card.Img variant="top" src={postImageUrl} className={'mb-0'} />
+      <GatsbyImage image={postImage} alt={'author'} />
       <Card.Body>
         <small className={'m-0 text-secondary'}>
           {date} | {timeToRead} min read

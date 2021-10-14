@@ -7,19 +7,23 @@ import { useSiteMetadata } from "../hooks/use-site-metadata";
 import AnimatePage from '../components/AnimatePage';
 import PostList from '../components/PostList';
 
-
+// change the post detail page creation for cover
 export const query = graphql`
   query SITE_INDEX_QUERY {
     allPosts: allMdx(sort: {fields: [frontmatter___date], order: DESC}) {
       nodes {
-        id
-        excerpt(pruneLength: 250)
         frontmatter {
           title
           date(formatString: "MMMM Do, YYYY @ h:mm a")
           tags
-          image
+          cover {
+            publicURL
+            childImageSharp {
+              gatsbyImageData
+            }
+          }
         }
+        excerpt(pruneLength: 150)
         slug
         timeToRead
       }

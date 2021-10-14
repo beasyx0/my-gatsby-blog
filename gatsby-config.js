@@ -19,9 +19,12 @@ module.exports = {
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-use-dark-mode`,
     `gatsby-plugin-sharp`,
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-image`,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
+        extensions: [`.mdx`, `.md`],
         gatsbyRemarkPlugins: [
           {
             resolve: `gatsby-remark-images`,
