@@ -14,16 +14,16 @@ const ThemeToggle = () => {
   }
 
   return(
-    <div>
+    <div className={'d-flex justify-content-end'}>
       <>
         {darkMode.value && (
           <a href="/" onClick={handleThemeChange}>
-            <FaSun className={'text-warning h5 scale-on-hover'} />
+            <FaSun className={'mx-2 text-warning h5 scale-on-hover'} />
           </a>
         )}
         {!darkMode.value && (
           <a href="/" onClick={handleThemeChange}>
-            <FaMoon className={'text-warning h5 scale-on-hover'} />
+            <FaMoon className={'mx-2 text-warning h5 scale-on-hover'} />
           </a>
         )}
       </>

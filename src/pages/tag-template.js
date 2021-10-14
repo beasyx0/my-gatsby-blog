@@ -9,14 +9,14 @@ import PostList from '../components/PostList';
 
 export const query = graphql`
   query ($tag: String) {
-    allMdx(filter: {frontmatter: {tags: {in: [$tag]}}}) {
+    allPostsForTag: allMdx(filter: {frontmatter: {tags: {in: [$tag]}}}) {
       totalCount
       edges {
         node {
           slug
           frontmatter {
             title
-            date(formatString: "MMMM Do YYYY h:mm a")
+            date(formatString: "MMMM Do, YYYY @ h:mm a")
             tags
             image
           }
@@ -24,6 +24,12 @@ export const query = graphql`
           id
           timeToRead
         }
+      }
+    }
+    allTags: allMdx {
+      group(field: frontmatter___tags) {
+        fieldValue
+        totalCount
       }
     }
   }
@@ -41,14 +47,14 @@ const TagPage = ({ pageContext, data }) => {
   } = useSiteMetadata();
 
   const { tag } = pageContext;
-  const { totalCount } = data.allMdx;
-  const nodes = data.allMdx.edges;
+  const { totalCount } = data.allPostsForTag;
+  const nodes = data.allPostsForTag.edges;
   const posts = [];
-
   // PostList takes an array of posts
   nodes.forEach((node)=>{
     posts.push(node.node);
   })
+  const tags = data.allTags.group; // tags with counts
 
   const tagHeader = `
     ${totalCount} post${totalCount === 1 ? '' : 's'} tagged with "${tag}"
@@ -71,7 +77,7 @@ const TagPage = ({ pageContext, data }) => {
       />
       <AnimatePage>
         <h2>{tagHeader}</h2>
-        <PostList data={posts} />
+        <PostList postsData={posts} tagsData={tags} />
       </AnimatePage>
     </>
   );

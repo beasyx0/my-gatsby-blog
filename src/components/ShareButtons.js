@@ -11,9 +11,7 @@ import {
 } from 'react-share';
 
 
-const ShareButtons = (props) => {
-
-  const { urlToShare, titleToShare, tags } = props;
+const ShareButtons = ({ urlToShare, titleToShare, tags }) => {
 
   return(
     <div className={'my-3'}>

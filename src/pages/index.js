@@ -10,18 +10,24 @@ import PostList from '../components/PostList';
 
 export const query = graphql`
   query SITE_INDEX_QUERY {
-    allMdx(sort: {fields: [frontmatter___date], order: DESC}) {
+    allPosts: allMdx(sort: {fields: [frontmatter___date], order: DESC}) {
       nodes {
         id
         excerpt(pruneLength: 250)
         frontmatter {
           title
-          date(formatString: "MMMM Do YYYY h:mm a")
+          date(formatString: "MMMM Do, YYYY @ h:mm a")
           tags
           image
         }
         slug
         timeToRead
+      }
+    }
+    allTags: allMdx {
+      group(field: frontmatter___tags) {
+        fieldValue
+        totalCount
       }
     }
   }
@@ -49,7 +55,8 @@ const IndexPage = ({data}) => {
     authorName,
   } = useSiteMetadata();
 
-  const posts = data.allMdx.nodes;
+  const posts = data.allPosts.nodes;
+  const tags = data.allTags.group; // tags with counts
 
   return(
     <>
@@ -66,7 +73,7 @@ const IndexPage = ({data}) => {
         author={authorName}
       />
       <AnimatePage>
-        <PostList data={posts} />
+        <PostList postsData={posts} tagsData={tags}  />
       </AnimatePage>
     </>
   );

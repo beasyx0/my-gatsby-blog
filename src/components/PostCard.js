@@ -11,11 +11,8 @@ import { useAppState } from '../Context';
 import ShareButtons from './ShareButtons';
 
 
-const PostCard = (postDetails) => {
-
-  const darkMode = useDarkMode();
-
-  const { 
+const PostCard = (
+  { 
     slug, 
     date, 
     postImageUrl, 
@@ -23,9 +20,24 @@ const PostCard = (postDetails) => {
     title, 
     excerpt, 
     tags, 
-  } = postDetails;
+    tagsWithCounts 
+  }) => {
+
+  const darkMode = useDarkMode();
 
   const shareUrl = window.location.href + slug;
+
+  const postTagsWithCounts = {}
+
+  tags && (
+    tags.forEach((tag)=>{
+      tagsWithCounts.forEach((tagg)=>{
+        if (tagg.fieldValue === tag) {
+          postTagsWithCounts[tag] = tagg.totalCount;
+        }
+      })
+    })
+  )
 
   return(
     <Card key={slug} className={'mb-4 p-2 bg-transparent shadow post-card-scale-on-hover'}>
@@ -46,25 +58,27 @@ const PostCard = (postDetails) => {
         </Card.Text>
         {tags && (
           <ul className={'m-0 list-unstyled'}>
-            {tags.map((tag) => (
-              <li className={'m-1 d-inline-block'}>
-                <Link key={tag} to={`/tags/${_.kebabCase(tag)}/`}>
-                  <Badge 
-                    bg={`${darkMode.value ? 'dark' : 'light'}`} 
-                    className={`(
-                      shadow-sm border ${darkMode.value && 'border-secondary'} rounded scale-on-hover
-                    )`}
-                    style={{
-                      transition: 'background-color 0.5s ease'
-                    }}
-                  >
-                    <small className={'text-primary'}>
-                      {tag}
-                    </small>
-                  </Badge>
-                </Link>
-              </li>
-            ))}
+            {Object.entries(postTagsWithCounts).map(([key, value])=>{
+              return(
+                <li className={'m-1 d-inline-block'}>
+                  <Link key={key} to={`/tags/${_.kebabCase(key)}/`}>
+                    <Badge 
+                      bg={`${darkMode.value ? 'dark' : 'light'}`} 
+                      className={`(
+                        shadow-sm border ${darkMode.value && 'border-secondary'} rounded scale-on-hover
+                      )`}
+                      style={{
+                        transition: 'background-color 0.5s ease'
+                      }}
+                    >
+                      <small className={'text-primary'}>
+                        {key} {value}
+                      </small>
+                    </Badge>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         )}
         <ShareButtons

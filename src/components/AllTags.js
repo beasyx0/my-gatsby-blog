@@ -43,6 +43,9 @@ const AllTags = () => {
                         darkMode.value && 'border-secondary'
                       )} rounded text-primary scale-on-hover
                     )`}
+                    style={{
+                      transition: 'background-color 0.5s ease'
+                    }}
                   >
                    {obj.fieldValue} {obj.totalCount}
                   </Badge>

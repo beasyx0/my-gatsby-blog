@@ -4,13 +4,12 @@ import { FaCopy } from 'react-icons/fa';
 import { copyToClipboard } from '../utils';
 
 
-const CopyButton = (codeStr) => {
+const CopyButton = ({codeStr}) => {
 
   const [copied, setCopied] = useState();
-  const { codeToCopy } = codeStr;
 
   const handleCopyToClipboard = () => {
-    copyToClipboard(codeToCopy);
+    copyToClipboard(codeStr);
     setCopied(true);
   }
 
@@ -19,7 +18,7 @@ const CopyButton = (codeStr) => {
       className={'d-flex justify-content-end'} 
     >
       <p className={'mx-2 text-success'}>
-        <span className={`${copied ? 'opacity-100' : 'opacity-0'}`}>Copied!</span>
+        <small className={`${copied ? 'opacity-100' : 'opacity-0'}`}>Copied!</small>
       </p>
       <FaCopy 
         className={'h5 text-primary scale-on-hover'} 

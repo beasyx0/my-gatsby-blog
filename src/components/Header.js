@@ -11,7 +11,7 @@ import ThemeToggle from './ThemeToggle';
 
 const Header = ({ siteTitle, siteDescription }) => {
   return(
-      <header className={'border-bottom'}>
+      <header className={'border-bottom'}> 
         <Container className={'m-0 p-0'}>
           <Row>
             <Col xs={10}>

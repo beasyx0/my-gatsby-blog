@@ -7,14 +7,12 @@ import Col from 'react-bootstrap/Col';
 import PostCard from './PostCard';
 
 
-const PostList = (postsToDisplay) => {
-
-  const posts = postsToDisplay.data;
+const PostList = ({ postsData, tagsData }) => {
 
   return(
     <Container className={'p-0'}>
       <Row>
-        {posts.map((post) => {
+        {postsData.map((post) => {
           const { slug, excerpt, timeToRead } = post;
           const { date, title, tags, image } = post.frontmatter;
           return(
@@ -27,6 +25,7 @@ const PostList = (postsToDisplay) => {
                 title={title} 
                 excerpt={excerpt} 
                 tags={tags}
+                tagsWithCounts={tagsData} 
               />
             </Col>
           );
