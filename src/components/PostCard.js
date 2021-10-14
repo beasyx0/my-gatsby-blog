@@ -36,7 +36,7 @@ const PostCard = (postDetails) => {
         </small>
         <Card.Title>
           <Link to={`/${slug}`}>
-            <h1 className={'h4'}>{title}</h1>
+            <h2 className={'h4'}>{title}</h2>
           </Link>
         </Card.Title>
         <Card.Text>

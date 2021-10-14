@@ -17,7 +17,7 @@ export const query = graphql`
       excerpt
       frontmatter {
         title
-        date
+        date(formatString: "MMMM Do YYYY h:mm a")
         tags
       }
     }
@@ -65,7 +65,7 @@ const PostPage = ({ data }) => {
       />
       <AnimatePage>
         <article>
-          <p>{dateForDisplay}</p>
+          <p>{date}</p>
           <h1>{title}</h1>
           {tags && (
             <p>
