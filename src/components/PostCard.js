@@ -25,24 +25,15 @@ const PostCard = (
     tagsWithCounts 
   }) => {
 
-
   const postImage = getImage(cover);
 
   const darkMode = useDarkMode();
 
   const shareUrl = window.location.href + slug;
 
-  const postTagsWithCounts = {}
-
-  tags && (
-    tags.forEach((tag)=>{
-      tagsWithCounts.forEach((tagg)=>{
-        if (tagg.fieldValue === tag) {
-          postTagsWithCounts[tag] = tagg.totalCount;
-        }
-      })
-    })
-  )
+  const postTagsWithCounts = tagsWithCounts.filter(tag => {
+    return tags.includes(tag.fieldValue);
+  });
 
   return(
     <Card key={slug} className={'mb-4 p-2 bg-transparent shadow post-card-scale-on-hover'}>
@@ -63,21 +54,21 @@ const PostCard = (
         </Card.Text>
         {tags && (
           <ul className={'m-0 list-unstyled'}>
-            {Object.entries(postTagsWithCounts).map(([key, value])=>{
+            {postTagsWithCounts.map((tag)=>{
               return(
                 <li className={'m-1 d-inline-block'}>
-                  <Link key={key} to={`/tags/${_.kebabCase(key)}/`}>
+                  <Link key={tag.fieldValue} to={`/tags/${_.kebabCase(tag.fieldValue)}/`}>
                     <Badge 
                       bg={`${darkMode.value ? 'dark' : 'light'}`} 
                       className={`(
                         shadow-sm border ${darkMode.value && 'border-secondary'} rounded scale-on-hover
                       )`}
                       style={{
-                        transition: 'background-color 0.5s ease'
+                        transition: darkMode.value === 'light' ? 'background-color 16.5s ease' : ''
                       }}
                     >
                       <small className={'text-primary'}>
-                        {key} {value}
+                        {tag.fieldValue} {tag.totalCount}
                       </small>
                     </Badge>
                   </Link>
