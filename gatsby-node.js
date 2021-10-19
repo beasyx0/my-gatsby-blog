@@ -70,11 +70,11 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const tagTemplate = path.resolve('src/pages/tag-template.js');
   const postListTemplate = path.resolve('src/pages/blog-list-template.js');
 
-  // Create blog-list pages
+  // Create blog-list pages, paginated.
   const posts = result.data.allPosts.nodes;
   const postsPerPage = 1
   const numPages = Math.ceil(posts.length / postsPerPage)
-  Array.from({ length: numPages }).forEach((_, i) => {
+  Array.from({ length: numPages }).forEach((item, i) => {
     createPage({
       path: i === 0 ? `/` : `/blog/${i + 1}`,
       component: postListTemplate,
@@ -87,15 +87,31 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     })
   });
 
-  // create tag result pages
+  // create tag result pages, paginated.
   const tags = result.data.allTags.group;
   tags.forEach((tag) => {
-    createPage({
-      path: `/tags/${_.kebabCase(tag.fieldValue)}/`,
-      component: tagTemplate,
-      context: {
-        tag: tag.fieldValue,
-      },
+    // get all posts for specific tag so we can calculate number of pages.
+    const allTagPosts = posts.filter(post => {
+      return post.frontmatter.tags.includes(tag.fieldValue)
+    })
+    const tagNumPages = Math.ceil(allTagPosts.length / postsPerPage);
+
+    Array.from({ length: tagNumPages }).forEach((item, i) => {
+      createPage({
+        path: i === 0 ? (
+            `/tags/${_.kebabCase(tag.fieldValue)}/`
+          ) : (
+            `/tags/${_.kebabCase(tag.fieldValue)}/${i + 1}/`
+          ),
+        component: tagTemplate,
+        context: {
+          tag: tag.fieldValue,
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          tagNumPages,
+          currentPage: i + 1,
+        },
+      })
     });
   });
 };

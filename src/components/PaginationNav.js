@@ -2,24 +2,31 @@ import React from 'react';
 import { Link } from 'gatsby';
 
 
-const PaginationNav = ({currentPage, numPages}) => {
-
-  const isFirstPage = currentPage === 1;
-  const isLastPage = currentPage === numPages;
-  const prevPage = currentPage - 1 === 1 ? '/' : '/blog/' + (currentPage - 1).toString();
-  const nextPage = '/blog/' + (currentPage + 1).toString();
+const PaginationNav = ({
+    currentPage, 
+    numPages, 
+    isFirstPage, 
+    isLastPage, 
+    prevPage, 
+    nextPage
+  }) => {
 
   return(
     <div className={'d-flex justify-content-around'}>
-      {!isFirstPage && (
-        <Link to={prevPage} rel="prev">
-          ← Previous Page
-        </Link>
-      )}
-      {!isLastPage && (
-        <Link to={nextPage} rel="next">
-          Next Page →
-        </Link>
+      {numPages > 1 && (
+        <>
+          {!isFirstPage && (
+            <Link to={prevPage} rel="prev">
+              ← Previous Page
+            </Link>
+          )}
+          <small>Page {currentPage} of {numPages}</small>
+          {!isLastPage && (
+            <Link to={nextPage} rel="next">
+              Next Page →
+            </Link>
+          )}
+        </>
       )}
     </div>
   );

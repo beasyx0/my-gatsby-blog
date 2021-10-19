@@ -7,7 +7,7 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import AnimatePage from '../components/AnimatePage';
 import { formatDate } from '../utils';
 
-// todo: get rid of excerpt
+
 export const query = graphql`
   query POST_BY_SLUG($slug: String) {
     mdx(slug: {eq: $slug}) {

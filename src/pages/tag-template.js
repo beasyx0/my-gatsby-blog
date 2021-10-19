@@ -5,11 +5,16 @@ import Seo from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 import AnimatePage from '../components/AnimatePage';
 import PostList from '../components/PostList';
+import PaginationNav from '../components/PaginationNav';
 
 
 export const query = graphql`
-  query ($tag: String) {
-    allPostsForTag: allMdx(filter: {frontmatter: {tags: {in: [$tag]}}}) {
+  query ($tag: String, $skip: Int!, $limit: Int!) {
+    allPostsForTag: allMdx(
+      filter: {frontmatter: {tags: {in: [$tag]}}}
+      limit: $limit
+      skip: $skip
+    ) {
       totalCount
       edges {
         node {
@@ -50,7 +55,13 @@ const TagPage = ({ pageContext, data }) => {
     twitterUsername,
   } = useSiteMetadata();
 
-  const { tag } = pageContext;
+  const { tag, tagNumPages, currentPage } = pageContext;
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === tagNumPages;
+  const prevPage = (
+    currentPage - 1 === 1 ? `/tags/${tag}/` : `/tags/${tag}/` + (currentPage - 1).toString() + '/'
+  );
+  const nextPage = `/tags/${tag}/` + (currentPage + 1).toString() + '/';
   const { totalCount } = data.allPostsForTag;
   const nodes = data.allPostsForTag.edges;
   const posts = [];
@@ -82,6 +93,14 @@ const TagPage = ({ pageContext, data }) => {
       <AnimatePage>
         <h2>{tagHeader}</h2>
         <PostList postsData={posts} tagsData={tags} />
+        <PaginationNav 
+          currentPage={currentPage} 
+          numPages={tagNumPages} 
+          isFirstPage={isFirstPage} 
+          isLastPage={isLastPage} 
+          prevPage={prevPage} 
+          nextPage={nextPage}
+        />
       </AnimatePage>
     </>
   );

@@ -69,15 +69,21 @@ const BlogListTemplate = ({data, pageContext}) => {
   const posts = data.allPosts.nodes;
   const tags = data.allTags.group; // tags with counts
   const { currentPage, numPages } = pageContext;
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === numPages;
+  const prevPage = (
+    currentPage - 1 === 1 ? '/' : '/blog/' + (currentPage - 1).toString() + '/'
+  );
+  const nextPage = '/blog/' + (currentPage + 1).toString() + '/';
 
   return(
     <>
       <Seo
-        title={`Blog`}
+        title={'Blog'}
         titleTemplate={title}
         titleSeperator={'-'}
         description={description}
-        pathname={`${pageContext.currentPage === 1 ? siteUrl : siteUrl + '/blog/' + pageContext.currentPage}`}
+        pathname={`${currentPage === 1 ? siteUrl : siteUrl + '/blog/' + currentPage}`}
         image={siteImageUrl}
         siteLanguage={siteLanguage}
         siteLocale={siteLocale}
@@ -85,10 +91,15 @@ const BlogListTemplate = ({data, pageContext}) => {
         author={authorName}
       />
       <AnimatePage>
-        
         <PostList postsData={posts} tagsData={tags}  />
-
-        <PaginationNav currentPage={currentPage} numPages={numPages} />
+        <PaginationNav 
+          currentPage={currentPage} 
+          numPages={numPages} 
+          isFirstPage={isFirstPage} 
+          isLastPage={isLastPage} 
+          prevPage={prevPage} 
+          nextPage={nextPage}
+        />
       </AnimatePage>
     </>
   );
