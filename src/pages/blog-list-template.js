@@ -6,11 +6,16 @@ import { useSiteMetadata } from "../hooks/use-site-metadata";
 // import usePosts from '../hooks/use-posts';
 import AnimatePage from '../components/AnimatePage';
 import PostList from '../components/PostList';
+import PaginationNav from '../components/PaginationNav';
 
 // change the post detail page creation for cover
 export const query = graphql`
-  query SITE_INDEX_QUERY {
-    allPosts: allMdx(sort: {fields: [frontmatter___date], order: DESC}) {
+  query SITE_INDEX_QUERY($skip: Int!, $limit: Int!) {
+    allPosts: allMdx(
+      sort: {fields: [frontmatter___date], order: DESC}
+      limit: $limit
+      skip: $skip
+    ) {
       nodes {
         frontmatter {
           title
@@ -19,7 +24,9 @@ export const query = graphql`
           cover {
             publicURL
             childImageSharp {
-              gatsbyImageData
+              gatsbyImageData(
+                placeholder: BLURRED
+              )
             }
           }
         }
@@ -38,7 +45,7 @@ export const query = graphql`
 `;
 
 // all posts
-const IndexPage = ({data}) => {
+const BlogListTemplate = ({data, pageContext}) => {
 
   // const { posts: allPosts } = usePosts();
 
@@ -61,15 +68,16 @@ const IndexPage = ({data}) => {
 
   const posts = data.allPosts.nodes;
   const tags = data.allTags.group; // tags with counts
+  const { currentPage, numPages } = pageContext;
 
   return(
     <>
       <Seo
-        title={`Home`}
+        title={`Blog`}
         titleTemplate={title}
         titleSeperator={'-'}
         description={description}
-        pathname={siteUrl}
+        pathname={`${pageContext.currentPage === 1 ? siteUrl : siteUrl + '/blog/' + pageContext.currentPage}`}
         image={siteImageUrl}
         siteLanguage={siteLanguage}
         siteLocale={siteLocale}
@@ -77,9 +85,12 @@ const IndexPage = ({data}) => {
         author={authorName}
       />
       <AnimatePage>
+        
         <PostList postsData={posts} tagsData={tags}  />
+
+        <PaginationNav currentPage={currentPage} numPages={numPages} />
       </AnimatePage>
     </>
   );
 }
-export default IndexPage;
+export default BlogListTemplate;

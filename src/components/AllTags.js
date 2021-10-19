@@ -44,7 +44,7 @@ const AllTags = () => {
                       )} rounded text-primary scale-on-hover
                     )`}
                     style={{
-                      transition: 'background-color 0.5s ease'
+                      transition: darkMode.value === 'light' ? 'background-color 0.5s ease' : ''
                     }}
                   >
                    {obj.fieldValue} {obj.totalCount}

@@ -8,7 +8,6 @@ import useDarkMode from 'use-dark-mode';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 
-import { useAppState } from '../Context';
 import ShareButtons from './ShareButtons';
 
 
@@ -25,9 +24,9 @@ const PostCard = (
     tagsWithCounts 
   }) => {
 
-  const postImage = getImage(cover);
-
   const darkMode = useDarkMode();
+
+  const postImage = getImage(cover);
 
   const shareUrl = window.location.href + slug;
 
@@ -37,7 +36,7 @@ const PostCard = (
 
   return(
     <Card key={slug} className={'mb-4 p-2 bg-transparent shadow post-card-scale-on-hover'}>
-      <GatsbyImage image={postImage} alt={'author'} />
+      <GatsbyImage image={postImage} alt={'Blog post cover image.'} />
       <Card.Body>
         <small className={'m-0 text-secondary'}>
           {date} | {timeToRead} min read
@@ -64,7 +63,7 @@ const PostCard = (
                         shadow-sm border ${darkMode.value && 'border-secondary'} rounded scale-on-hover
                       )`}
                       style={{
-                        transition: darkMode.value === 'light' ? 'background-color 16.5s ease' : ''
+                        transition: darkMode.value === 'light' ? 'background-color 0.5s ease' : ''
                       }}
                     >
                       <small className={'text-primary'}>
