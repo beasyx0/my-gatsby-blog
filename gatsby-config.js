@@ -13,6 +13,31 @@ const siteMetadata = {
   siteLocale: `en_us`,
 };
 
+const gitHubQuery = `
+{
+  viewer {
+    url
+    avatarUrl(size: 100)
+    repositories(last: 50, privacy: PUBLIC) {
+      totalCount
+      nodes {
+        createdAt
+        updatedAt
+        name
+        description
+        url
+        languages(last: 20) {
+          nodes {
+            name
+            color
+          }
+        }
+      }
+    }
+  }
+}
+`
+
 module.exports = {
   siteMetadata,
   plugins: [
@@ -69,5 +94,12 @@ module.exports = {
         timeout: 3500,
       }
     },
+    {
+    resolve: `gatsby-source-github-api`,
+      options: {
+        token: process.env.GITHUB_PERSONAL_ACCESS_TOKEN,
+        graphQLQuery: gitHubQuery,
+      }
+    }
   ],
 };

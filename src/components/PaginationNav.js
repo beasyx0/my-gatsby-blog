@@ -12,7 +12,7 @@ const PaginationNav = ({
   }) => {
 
   return(
-    <div className={'d-flex justify-content-around'}>
+    <div className={'pt-4 pb-4 d-flex justify-content-around'}>
       {numPages > 1 && (
         <>
           {!isFirstPage && (

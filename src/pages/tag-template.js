@@ -1,6 +1,5 @@
 import React from 'react';
 import { graphql } from 'gatsby';
-import {GatsbyImage, getImage} from 'gatsby-plugin-image';
 import Seo from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 import AnimatePage from '../components/AnimatePage';
@@ -59,7 +58,11 @@ const TagPage = ({ pageContext, data }) => {
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === tagNumPages;
   const prevPage = (
-    currentPage - 1 === 1 ? `/tags/${tag}/` : `/tags/${tag}/` + (currentPage - 1).toString() + '/'
+    currentPage - 1 === 1 ? (
+        `/tags/${tag}/`
+      ) : (
+        `/tags/${tag}/` + (currentPage - 1).toString() + '/'
+      )
   );
   const nextPage = `/tags/${tag}/` + (currentPage + 1).toString() + '/';
   const { totalCount } = data.allPostsForTag;
@@ -91,7 +94,7 @@ const TagPage = ({ pageContext, data }) => {
         twitterUsername={twitterUsername}
       />
       <AnimatePage>
-        <h2>{tagHeader}</h2>
+        <h1 className={'h5'}>{tagHeader}</h1>
         <PostList postsData={posts} tagsData={tags} />
         <PaginationNav 
           currentPage={currentPage} 

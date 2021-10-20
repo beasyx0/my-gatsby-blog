@@ -68,13 +68,15 @@ const BlogListTemplate = ({data, pageContext}) => {
 
   const posts = data.allPosts.nodes;
   const tags = data.allTags.group; // tags with counts
-  const { currentPage, numPages } = pageContext;
+  const { totalCount, currentPage, numPages } = pageContext;
   const isFirstPage = currentPage === 1;
   const isLastPage = currentPage === numPages;
   const prevPage = (
     currentPage - 1 === 1 ? '/' : '/blog/' + (currentPage - 1).toString() + '/'
   );
   const nextPage = '/blog/' + (currentPage + 1).toString() + '/';
+
+  const blogHeader = `All Posts (${totalCount})`;
 
   return(
     <>
@@ -91,6 +93,7 @@ const BlogListTemplate = ({data, pageContext}) => {
         author={authorName}
       />
       <AnimatePage>
+        <h1 className={'h5'}>{ blogHeader }</h1>
         <PostList postsData={posts} tagsData={tags}  />
         <PaginationNav 
           currentPage={currentPage} 

@@ -37,7 +37,7 @@ const PostCard = (
   return(
     <Card key={slug} className={'mb-4 p-2 bg-transparent shadow post-card-scale-on-hover'}>
       <GatsbyImage image={postImage} alt={'Blog post cover image.'} />
-      <Card.Body>
+      <Card.Body className={'px-1'}>
         <small className={'m-0 text-secondary'}>
           {date} | {timeToRead} min read
         </small>

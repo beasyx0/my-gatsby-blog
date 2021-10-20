@@ -84,8 +84,12 @@ const NewsletterSignup = () => {
     left: '-9999px',
   }
 
+  const notAllowedCursorStyle = {
+    cursor: 'not-allowed',
+  }
+
   return(
-    <Card className={'p-1 bg-transparent shadow'}>
+    <Card className={'mb-4 p-1 bg-transparent shadow'}>
       <Card.Body>
         <Card.Title>            
           <h3 className={'h5'}>Sign up for the newsletter</h3>
@@ -119,14 +123,16 @@ const NewsletterSignup = () => {
               />
           </Form.Group>
           <Form.Group>
-            <Button 
-              id="newsletterButton" 
-              variant="primary" 
-              type="submit" 
-              className={buttonDisabled && 'disabled'}
-            >
-              Submit
-            </Button>
+            <span style={buttonDisabled ? notAllowedCursorStyle : {}}>
+              <Button 
+                id="newsletterButton" 
+                variant="primary" 
+                type="submit" 
+                className={buttonDisabled && 'disabled'}
+              >
+                Submit
+              </Button>
+            </span>
             <Loader
               type="Puff"
               color="#00BFFF"

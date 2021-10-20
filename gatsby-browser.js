@@ -13,7 +13,6 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import duotoneLite from 'prism-react-renderer/themes/duotoneLight';
 import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
 import {AnimatePresence} from 'framer-motion';
-import Button from 'react-bootstrap/Button';
 import theme from 'prism-react-renderer/themes/nightOwl';
 
 import { AppContextProvider } from './src/Context';

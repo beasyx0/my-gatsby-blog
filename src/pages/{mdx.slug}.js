@@ -5,7 +5,6 @@ import Seo from 'react-seo-component';
 
 import { useSiteMetadata } from '../hooks/use-site-metadata';
 import AnimatePage from '../components/AnimatePage';
-import { formatDate } from '../utils';
 
 
 export const query = graphql`
@@ -43,8 +42,6 @@ const PostPage = ({ data }) => {
     excerpt,
     body, 
   } = data.mdx;
-
-  const dateForDisplay = formatDate(date);
 
   return(
     <>

@@ -6,6 +6,7 @@ import Col from 'react-bootstrap/Col';
 
 import AllTags from './AllTags';
 import NewsletterSignup from './NewsletterSignup';
+import GitHubWidget from './GitHubWidget';
 // import HCaptchaForm from './HCaptchaForm';
 // import HCaptchaFormm from './HCaptchaFormm';
 
@@ -18,6 +19,7 @@ const Sidebar = ({ children }) => {
           <Col>
             <AllTags />
             <NewsletterSignup />
+            <GitHubWidget />
           </Col>
         </Row>
       </Container>

@@ -51,6 +51,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
           slug
           timeToRead
         }
+        totalCount
       }
       allTags: allMdx {
         group(field: frontmatter___tags) {
@@ -72,6 +73,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   // Create blog-list pages, paginated.
   const posts = result.data.allPosts.nodes;
+  const totalCount = result.data.allPosts.totalCount;
   const postsPerPage = 1
   const numPages = Math.ceil(posts.length / postsPerPage)
   Array.from({ length: numPages }).forEach((item, i) => {
@@ -79,6 +81,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       path: i === 0 ? `/` : `/blog/${i + 1}`,
       component: postListTemplate,
       context: {
+        totalCount,
         limit: postsPerPage,
         skip: i * postsPerPage,
         numPages,
