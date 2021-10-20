@@ -18,7 +18,7 @@ const gitHubQuery = `
   viewer {
     url
     avatarUrl(size: 100)
-    repositories(last: 50, privacy: PUBLIC) {
+    repositories(last: 50, privacy: PUBLIC, orderBy: {field: UPDATED_AT, direction: DESC}) {
       totalCount
       nodes {
         createdAt
@@ -36,6 +36,7 @@ const gitHubQuery = `
     }
   }
 }
+
 `
 
 module.exports = {

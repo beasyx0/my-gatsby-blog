@@ -20,9 +20,11 @@ body.light-mode {
   transition: background-color 0.5s ease;
 }
 body.dark-mode {
-  background-color: #1a1919;
+  background-color: #212e30;
   color: #999;
 }
+
+/*#1a1919*/
 
 a {
   text-decoration: none;
