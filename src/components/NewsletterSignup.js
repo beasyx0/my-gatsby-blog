@@ -5,6 +5,8 @@ import validator from 'validator';
 import addToMailchimp from 'gatsby-plugin-mailchimp';
 import Loader from 'react-loader-spinner';
 
+import useDarkMode from 'use-dark-mode';
+
 import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -21,12 +23,13 @@ const NewsletterSignup = () => {
   const [message, setMessage] = useState('');
   const [buttonDisabled, setButtonDisabled] = useState(true);
   const [isWebsiteUrlInput, setIsWebsiteUrlInput] = useState(false); // honey
-  const emailImputRef = useRef(null);
+  const emailInputRef = useRef(null);
   const websiteUrlInputRef = useRef(null);
   const listFields = {'MMERGE6': window.location.href};
+  const darkMode = useDarkMode();
 
   const handleReset = () => {
-    emailImputRef.current.value = '';
+    emailInputRef.current.value = '';
     websiteUrlInputRef.current.value = '';
     setEmail('');
     setButtonDisabled(true);
@@ -88,6 +91,11 @@ const NewsletterSignup = () => {
     cursor: 'not-allowed',
   }
 
+  const emailInputDarkStyles = { 
+    backgroundColor: 'transparent', 
+    color: '#fff' 
+  }
+
   return(
     <Card className={'mb-4 p-1 bg-transparent shadow'}>
       <Card.Body>
@@ -102,27 +110,33 @@ const NewsletterSignup = () => {
               Get notified of new posts. Don't worry, your email 
               will never be shared with anyone else.
             </Form.Text>
+            <Form.Label for="newsletterEmailInput" className={'invisible'}>
+              Email
+            </Form.Label>
             <Form.Control 
+              required
               type="email" 
+              id="newsletterEmailInput" 
               placeholder="Enter email" 
               onChange={handleOnChange} 
-              className={'mt-3 mb-3 required'} 
-              ref={emailImputRef}
+              className={'mt-3 mb-3'} 
+              ref={emailInputRef}
+              style={darkMode.value ? emailInputDarkStyles : {}}
             />
           </Form.Group>
           <Form.Group style={websiteUrlStyles}>
             <Form.Label for="websiteUrl">
               Your website
             </Form.Label>
-              <Form.Control
-                type="text" 
-                id="websiteUrl" 
-                name="url" 
-                tabindex="-1" 
-                autocomplete="no" 
-                onChange={handleWebsiteUrlInput} 
-                ref={websiteUrlInputRef}
-              />
+            <Form.Control
+              type="text" 
+              id="websiteUrl" 
+              name="url" 
+              tabindex="-1" 
+              autocomplete="no" 
+              onChange={handleWebsiteUrlInput} 
+              ref={websiteUrlInputRef}
+            />
           </Form.Group>
           <Form.Group>
             <span style={buttonDisabled ? notAllowedCursorStyle : {}}>
@@ -140,18 +154,31 @@ const NewsletterSignup = () => {
               color="#00BFFF"
               height={35}
               width={35}
-              className={`mx-3 ${loading ? 'd-inline' : 'd-none'}`}
+              className={`
+                mx-3 
+                ${loading ? 'd-inline' : 'd-none'}
+              `}
             />
             <FaTimes 
-              className={`mx-3 text-danger ${isError ? 'd-inline' : 'd-none'}`} 
+              className={`
+                mx-3 text-danger 
+                ${isError ? 'd-inline' : 'd-none'}
+              `} 
             />
             
             <FaCheck 
-              className={`mx-3 text-success ${isSuccess ? 'd-inline' : 'd-none'}`} 
+              className={`
+                mx-3 text-success 
+                ${isSuccess ? 'd-inline' : 'd-none'}
+              `} 
             />
 
             <small 
-              className={`${message ? 'd-inline' : 'd-none'} ${isError && 'text-danger'} ${isSuccess && 'text-success'}`}
+              className={`
+                ${message ? 'd-inline' : 'd-none'} 
+                ${isError && 'text-danger'} 
+                ${isSuccess && 'text-success'}
+              `}
             >
               {message}
             </small>

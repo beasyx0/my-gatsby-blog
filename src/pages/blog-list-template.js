@@ -10,7 +10,7 @@ import AnimatePage from '../components/AnimatePage';
 import PostList from '../components/PostList';
 import PaginationNav from '../components/PaginationNav';
 
-// change the post detail page creation for cover
+
 export const query = graphql`
   query SITE_INDEX_QUERY($skip: Int!, $limit: Int!) {
     allPosts: allMdx(
@@ -46,7 +46,7 @@ export const query = graphql`
   }
 `;
 
-// all posts
+
 const BlogListTemplate = ({data, pageContext}) => {
 
   // const { posts: allPosts } = usePosts();

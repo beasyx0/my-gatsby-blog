@@ -17,7 +17,7 @@ const GitHubWidget = () => {
   }
 
   const gitHubAvatarStyles = {
-    width: '25px',
+    width: '22px',
   }
 
   const gitHubRepoUpdatedAtStyles = {
@@ -62,7 +62,7 @@ const GitHubWidget = () => {
       `}
       render={data => (
         <Card className={'mb-4 p-2 bg-transparent shadow'} style={gitHubWidgetStyles}>
-          <div className={'d-flex justify-content-between'}>
+          <div className={'px-2 d-flex justify-content-between'}>
             <h5>
               <FaGithub className={'text-light'} />
               {' '}
@@ -95,7 +95,12 @@ const GitHubWidget = () => {
                     {repo.languages.nodes.map((obj)=> (
                       <>
                         <span style={gitHubRepoLanguageNameStyles}>
-                          <FaCircle style={{ paddingBottom: '2px', fontSize: '10px', color: `${obj.color}`}} />
+                          <FaCircle 
+                            style={{ 
+                              paddingBottom: '2px', 
+                              fontSize: '10px', 
+                              color: `${obj.color}`
+                            }} />
                           {' '}
                           { obj.name }
                         </span>
