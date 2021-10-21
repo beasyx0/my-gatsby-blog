@@ -6,6 +6,8 @@ import useDarkMode from 'use-dark-mode';
 import Card from 'react-bootstrap/Card';
 import Badge from 'react-bootstrap/Badge';
 
+import { FaTags } from 'react-icons/fa';
+
 
 const AllTags = () => {
 
@@ -26,9 +28,11 @@ const AllTags = () => {
       render={data => (
         <Card className={'mb-4 p-2 bg-transparent shadow'}>
           <Card.Body>
-            <Card.Title>
-              <h3 className={'h5'}>Tags ({data.allMdx.group.length})</h3>
-            </Card.Title>
+            <h5>
+              <FaTags className={'text-light'} />
+              {' '}
+              Tags ({data.allMdx.group.length})
+            </h5>
             {data.allMdx.group.map((obj)=>{
               return(
                 <Link 

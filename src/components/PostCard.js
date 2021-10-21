@@ -41,11 +41,9 @@ const PostCard = (
         <small className={'m-0 text-secondary'}>
           {date} | {timeToRead} min read
         </small>
-        <Card.Title>
-          <Link to={`/${slug}`}>
-            <h2 className={'h4'}>{title}</h2>
-          </Link>
-        </Card.Title>
+        <Link to={`/${slug}`}>
+          <h2 className={'h4'}>{title}</h2>
+        </Link>
         <Card.Text>
           <small>
           {excerpt}

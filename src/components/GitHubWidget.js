@@ -25,8 +25,9 @@ const GitHubWidget = () => {
   }
 
   const gitHubRepoLanguageNameStyles = {
+    display: 'inline-block',
     fontSize: '12px',
-    marginRight: '10px'
+    marginRight: '10px',
   }
 
   return(
@@ -41,8 +42,8 @@ const GitHubWidget = () => {
                 repositories {
                   totalCount
                   nodes {
-                    createdAt(formatString: "MMMM Do, YYYY @ h:mm a")
-                    updatedAt(formatString: "MMMM Do, YYYY @ h:mm a")
+                    createdAt(formatString: "MMMM Do, YYYY")
+                    updatedAt(formatString: "MMMM Do, YYYY")
                     name
                     url
                     description
@@ -62,13 +63,13 @@ const GitHubWidget = () => {
       render={data => (
         <Card className={'mb-4 p-2 bg-transparent shadow'} style={gitHubWidgetStyles}>
           <div className={'d-flex justify-content-between'}>
-            <Card.Title>
-              <h3 className={'h5'}>
-                <FaGithub />{' '}
-                Repos{' '}
-                ({data.githubData.data.viewer.repositories.totalCount})
-              </h3>
-            </Card.Title>
+            <h5>
+              <FaGithub className={'text-light'} />
+              {' '}
+              Repos
+              {' '}
+              ({data.githubData.data.viewer.repositories.totalCount})
+            </h5>
             <a href={data.githubData.data.viewer.url} target="_blank" rel="noreferrer">
               <img 
                 src={data.githubData.data.viewer.avatarUrl} 
@@ -84,17 +85,17 @@ const GitHubWidget = () => {
                 <Card className={'mb-4 bg-transparent shadow shadow-sm'}>
                   <Card.Body>
                     <small style={gitHubRepoUpdatedAtStyles}>
-                      {repo.updatedAt}
+                      Updated: {repo.updatedAt}
                     </small>
-                    <Card.Title>
+                    <h5>
                       <a href={repo.url} target="_blank" rel="noreferrer">
-                        <h5>{ repo.name }</h5>
+                        { repo.name }
                       </a>
-                    </Card.Title>
+                    </h5>
                     {repo.languages.nodes.map((obj)=> (
                       <>
                         <span style={gitHubRepoLanguageNameStyles}>
-                          <FaCircle style={{fontSize: '10px', color: `${obj.color}`}} />
+                          <FaCircle style={{ paddingBottom: '2px', fontSize: '10px', color: `${obj.color}`}} />
                           {' '}
                           { obj.name }
                         </span>

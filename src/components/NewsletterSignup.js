@@ -9,7 +9,7 @@ import Card from 'react-bootstrap/Card';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import { FaCheck, FaTimes } from 'react-icons/fa';
+import { FaCheck, FaTimes, FaRss } from 'react-icons/fa';
 
 
 const NewsletterSignup = () => {
@@ -91,9 +91,11 @@ const NewsletterSignup = () => {
   return(
     <Card className={'mb-4 p-1 bg-transparent shadow'}>
       <Card.Body>
-        <Card.Title>            
-          <h3 className={'h5'}>Sign up for the newsletter</h3>
-        </Card.Title >
+        <h5>
+          <FaRss className={'text-light'} />
+          {' '}
+          Sign up for the newsletter
+        </h5>
         <Form onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Text>

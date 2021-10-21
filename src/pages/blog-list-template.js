@@ -3,6 +3,8 @@ import { graphql } from 'gatsby';
 import Seo from "react-seo-component";
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 
+import { FaBlog } from 'react-icons/fa';
+
 // import usePosts from '../hooks/use-posts';
 import AnimatePage from '../components/AnimatePage';
 import PostList from '../components/PostList';
@@ -93,7 +95,11 @@ const BlogListTemplate = ({data, pageContext}) => {
         author={authorName}
       />
       <AnimatePage>
-        <h1 className={'h5'}>{ blogHeader }</h1>
+        <h1 className={'h5'}>
+          <FaBlog className={'text-light'} />
+          {' '}
+          { blogHeader }
+        </h1>
         <PostList postsData={posts} tagsData={tags}  />
         <PaginationNav 
           currentPage={currentPage} 
