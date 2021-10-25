@@ -22,25 +22,44 @@ const validateContactFormInput = (data) => {
     })
 }
 
+
 const submitContactForm = async (data) => {
     const getFormIoEndpointUrl = (
         process.env.GATSBY_GETFORM_CONTACT_FORM_ENDPOINT
     )
     const email = data.email;
     const message = data.message;
+    const emailInput = data.emailInput;
+    const messageInput = data.messageInput;
+    const websiteUrlInput = data.websiteUrlInput;
+
+    const clearForm = () => {
+        emailInput.current.value = '';
+        messageInput.current.value = '';
+    }
+
+    // if this input has a value we don't actually submit the form
+    if (websiteUrlInput) {
+        clearForm();
+        return new Promise((resolve, reject)=>{
+            resolve('Form submitted ;-)')
+        })
+    }
 
     let formData = new FormData();
     formData.append('contactFormEmail', email);
     formData.append('contactFormMessage', message);
+    
     await axios({
         method: 'post',
         url: getFormIoEndpointUrl,
         data: formData,
         headers: { 
           "Content-Type": "multipart/form-data" 
-    },
+        },
     })
     .then(function (response) {
+        clearForm();
         return response;
     })
     .catch(function (error) {
@@ -48,12 +67,16 @@ const submitContactForm = async (data) => {
     })
 }
 
+
 const statechart = {
     id: 'contactForm',
     initial: 'idle',
     context: {
         email: '',
         message: '',
+        websiteUrlInput: '',
+        emailInput: '',
+        messageInput: '',
     },
     states: {
         idle: {
@@ -66,12 +89,8 @@ const statechart = {
             invoke: {
                 id: 'validateEmailAndMessage',
                 src: 'validateEmailAndMessage',
-                onDone: {
-                    target: 'valid',
-                },
-                onError: {
-                    target: 'invalid',
-                },
+                onDone: 'valid',
+                onError: 'invalid',
             },
         },
         valid: {
@@ -89,12 +108,8 @@ const statechart = {
             invoke: {
                 id: 'submitContactFormData',
                 src: 'submitContactFormData',
-                onDone: {
-                    target: 'success',
-                },
-                onError: {
-                    target: 'error',
-                },
+                onDone: 'success',
+                onError: 'error',
             },
         },
         success: {
@@ -103,7 +118,6 @@ const statechart = {
         error: {
             on: {
                 CHANGE: 'validating',
-                RETRY: 'submitting',
             }
         },
     },
@@ -124,6 +138,9 @@ const machineConfig = {
             assign({ 
                 email: (context, event) => event.data.email,
                 message: (context, event) => event.data.message,
+                websiteUrlInput: (context, event) => event.data.websiteUrlInput,
+                emailInput: (context, event) => event.data.emailInput,
+                messageInput: (context, event) => event.data.messsageInput,
             })
         ),
     },

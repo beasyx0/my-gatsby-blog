@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import contactFormMachine from './ContactFormMachine';
 import { useMachine } from '@xstate/react';
@@ -18,10 +18,16 @@ const ContactForm = () => {
 
   const [currentState, send] = useMachine(contactFormMachine);
 
+  const emailInputRef = useRef(null);
+  const messageInputRef = useRef(null);
+
   const [formData, setFormData] = (
     useState({ 
       email: '', 
       message: '',
+      websiteUrlInput: '',
+      emailInput: emailInputRef,
+      messageInput: messageInputRef,
     })
   );
 
@@ -34,13 +40,24 @@ const ContactForm = () => {
       setFormData({
         ...formData,
         email: e.target.value,
+        emailInput: emailInputRef,
+        messageInput: messageInputRef,
       })
     ) : (
       setFormData({
         ...formData,
         message: e.target.value,
+        emailInput: emailInputRef,
+        messageInput: messageInputRef,
       })
     );
+  }
+
+  const handleOnChangeWebsiteUrl = (e) => {
+    setFormData({
+      ...formData,
+      websiteUrlInput: e.target.value,
+    })
   }
 
   const handleOnSubmit = (e) => {
@@ -92,6 +109,7 @@ const ContactForm = () => {
             >
               Email
             </Form.Label>
+
             <Form.Control 
               id="contactFormEmailInput" 
               required
@@ -99,7 +117,9 @@ const ContactForm = () => {
               name="contactFormEmail" 
               placeholder="Enter email" 
               onChange={handleOnChange} 
-              style={darkMode.value ? inputDarkStyles : null}
+              ref={emailInputRef}
+              style={darkMode.value ? inputDarkStyles : null} 
+              disabled={currentState.matches('success')}
             />
 
             <Form.Label 
@@ -108,6 +128,7 @@ const ContactForm = () => {
             >
               Message
             </Form.Label>
+
             <Form.Control 
               id="contactFormMessageInput" 
               required 
@@ -115,8 +136,10 @@ const ContactForm = () => {
               name="contactFormMessage" 
               placeholder="Enter a message.." 
               onChange={handleOnChange} 
+              ref={messageInputRef}
               rows={3}
               style={darkMode.value ? inputDarkStyles : null}
+              disabled={currentState.matches('success')}
             />
 
           </Form.Group>
@@ -148,6 +171,9 @@ const ContactForm = () => {
             {currentState.matches('success') && (
               <small className={'mx-3 text-success'}>Thank you.</small>
             )}
+            {currentState.matches('error') && (
+              <small className={'mx-3 text-danger'}>Something went wrong.</small>
+            )}
           </Form.Group>
           <small 
             className={`
@@ -166,7 +192,7 @@ const ContactForm = () => {
               name="url" 
               tabindex="-1" 
               autocomplete="no" 
-              onChange={null} 
+              onChange={handleOnChangeWebsiteUrl} 
             />
           </Form.Group>
         </Form>
