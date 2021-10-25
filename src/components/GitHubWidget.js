@@ -1,11 +1,15 @@
 import React from 'react';
 import { graphql, StaticQuery } from 'gatsby';
 
+import useDarkMode from 'use-dark-mode';
+
 import Card from 'react-bootstrap/Card';
 import { FaGithub, FaCircle } from 'react-icons/fa';
 
 
 const GitHubWidget = () => {
+
+  const darkMode = useDarkMode();
 
   const gitHubWidgetStyles = {
     height: '400px',
@@ -64,7 +68,7 @@ const GitHubWidget = () => {
         <Card className={'mb-4 p-2 bg-transparent shadow'} style={gitHubWidgetStyles}>
           <div className={'px-2 d-flex justify-content-between'}>
             <h5>
-              <FaGithub className={'text-light'} />
+              <FaGithub className={darkMode.value ? 'text-light' : 'text-dark'} />
               {' '}
               Repos
               {' '}

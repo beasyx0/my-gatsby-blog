@@ -15,7 +15,7 @@ import duotoneDark from 'prism-react-renderer/themes/duotoneDark';
 import {AnimatePresence} from 'framer-motion';
 import theme from 'prism-react-renderer/themes/nightOwl';
 
-import { AppContextProvider } from './src/Context';
+import { AppContextProvider } from './src/context';
 import Layout from './src/components/Layout';
 import CopyButton from './src/components/CopyButton';
 

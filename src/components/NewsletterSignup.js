@@ -100,7 +100,7 @@ const NewsletterSignup = () => {
     <Card className={'mb-4 p-1 bg-transparent shadow'}>
       <Card.Body>
         <h5>
-          <FaRss className={'text-light'} />
+          <FaRss className={darkMode.value ? 'text-light' : 'text-dark'} />
           {' '}
           Sign up for the newsletter
         </h5>

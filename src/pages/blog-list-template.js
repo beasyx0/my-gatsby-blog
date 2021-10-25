@@ -1,9 +1,12 @@
 import React from 'react';
 import { graphql } from 'gatsby';
 import Seo from "react-seo-component";
-import { useSiteMetadata } from "../hooks/use-site-metadata";
 
 import { FaBlog } from 'react-icons/fa';
+
+import useDarkMode from 'use-dark-mode';
+
+import { useSiteMetadata } from "../hooks/use-site-metadata";
 
 // import usePosts from '../hooks/use-posts';
 import AnimatePage from '../components/AnimatePage';
@@ -80,6 +83,8 @@ const BlogListTemplate = ({data, pageContext}) => {
 
   const blogHeader = `All Posts (${totalCount})`;
 
+  const darkMode = useDarkMode();
+
   return(
     <>
       <Seo
@@ -96,7 +101,7 @@ const BlogListTemplate = ({data, pageContext}) => {
       />
       <AnimatePage>
         <h1 className={'h5'}>
-          <FaBlog className={'text-light'} />
+          <FaBlog className={darkMode.value ? 'text-light' : 'text-dark'} />
           {' '}
           { blogHeader }
         </h1>

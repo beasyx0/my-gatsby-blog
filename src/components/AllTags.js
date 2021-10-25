@@ -29,7 +29,7 @@ const AllTags = () => {
         <Card className={'mb-4 p-2 bg-transparent shadow'}>
           <Card.Body>
             <h5>
-              <FaTags className={'text-light'} />
+              <FaTags className={darkMode.value ? 'text-light' : 'text-dark'} />
               {' '}
               Tags ({data.allMdx.group.length})
             </h5>

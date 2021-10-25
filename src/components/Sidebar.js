@@ -7,12 +7,10 @@ import Col from 'react-bootstrap/Col';
 import AllTags from './AllTags';
 import NewsletterSignup from './NewsletterSignup';
 import GitHubWidget from './GitHubWidget';
-import ContactForm from './ContactForm';
-// import HCaptchaForm from './HCaptchaForm';
-// import HCaptchaFormm from './HCaptchaFormm';
-
+import ContactForm from './contact-form';
 
 const Sidebar = ({ children }) => {
+
   return(
     <aside>
       <Container className={'m-0 p-0'}>
