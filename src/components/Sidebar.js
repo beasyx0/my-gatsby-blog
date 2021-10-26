@@ -5,7 +5,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import AllTags from './AllTags';
-import NewsletterSignup from './NewsletterSignup';
+import NewsletterSignup from './newsletter-signup-form';
 import GitHubWidget from './GitHubWidget';
 import ContactForm from './contact-form';
 

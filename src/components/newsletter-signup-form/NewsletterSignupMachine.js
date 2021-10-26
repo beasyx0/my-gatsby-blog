@@ -1,19 +1,15 @@
 import { Machine, assign } from 'xstate';
-import axios from 'axios';
 import validator from 'validator';
+import addToMailchimp from 'gatsby-plugin-mailchimp';
 
 
-const validateContactFormInput = (data) => {
+const validateNewsletterFormInput = (data) => {
     const email = data.email;
-    const message = data.message;
 
     const isValidEmail = validator.isEmail(email);
 
-    const wordCount = message.trim().split(/\s+/).length;
-    const isValidMessage = wordCount >= 5;
-
     return new Promise((resolve, reject) => {
-        if (isValidEmail && isValidMessage) {
+        if (isValidEmail) {
             return resolve('validated');
         } else {
             return reject('not valid');
@@ -22,20 +18,15 @@ const validateContactFormInput = (data) => {
 }
 
 
-const submitContactForm = async (data) => {
-    const getFormIoEndpointUrl = (
-        process.env.GATSBY_GETFORM_CONTACT_FORM_ENDPOINT
-    )
+const submitNewsletterFormData = async (data) => {
     const email = data.email;
-    const message = data.message;
     const websiteUrl = data.websiteUrl;
     const emailInput = data.emailInput;
-    const messageInput = data.messageInput;
     const websiteUrlInput = data.websiteUrlInput;
+    const mailChimpListFields = {'MMERGE6': window.location.href};
 
     const clearForm = () => {
         emailInput.current.value = '';
-        messageInput.current.value = '';
         websiteUrlInput.current.value = '';
     }
 
@@ -47,41 +38,29 @@ const submitContactForm = async (data) => {
         })
     }
 
-    let formData = new FormData();
-    formData.append('contactFormEmail', email);
-    formData.append('contactFormMessage', message);
-    
-    await axios({
-        method: 'post',
-        url: getFormIoEndpointUrl,
-        data: formData,
-        headers: { 
-          "Content-Type": "multipart/form-data" 
-        },
-    })
-    .then(function (response) {
-        clearForm();
-        return response;
-    })
-    .catch(function (error) {
-        return error;
-    })
+    await addToMailchimp(email, mailChimpListFields)
+        .then(function (response) {
+            clearForm();
+            return response;
+        })
+        .catch(function (error) {
+            return error;
+        })
 
     return new Promise((resolve, reject)=>{
-        return resolve('resolved')
+        clearForm();
+        return resolve('Form submitted.')
     })
 }
 
 
 const statechart = {
-    id: 'contactForm',
+    id: 'newsletterForm',
     initial: 'idle',
     context: {
         email: '',
-        message: '',
         websiteUrl: '',
         emailInput: '',
-        messageInput: '',
         websiteUrlInput: '',
     },
     states: {
@@ -93,8 +72,8 @@ const statechart = {
         validating: {
             actions: ['storeFormData'],
             invoke: {
-                id: 'validateEmailAndMessage',
-                src: 'validateEmailAndMessage',
+                id: 'validateEmail',
+                src: 'validateEmail',
                 onDone: 'valid',
                 onError: 'invalid',
             },
@@ -112,8 +91,8 @@ const statechart = {
         },
         submitting: {
             invoke: {
-                id: 'submitContactFormData',
-                src: 'submitContactFormData',
+                id: 'submitNewsletterForm',
+                src: 'submitNewsletterForm',
                 onDone: 'success',
                 onError: 'error',
             },
@@ -133,27 +112,25 @@ const statechart = {
 
 const machineConfig = {
     services: {
-        submitContactFormData: (
-            (context, event) => submitContactForm(event.data)
+        submitNewsletterForm: (
+            (context, event) => submitNewsletterFormData(event.data)
         ),
-        validateEmailAndMessage: (
-            (context, event) => validateContactFormInput(event.data)
+        validateEmail: (
+            (context, event) => validateNewsletterFormInput(event.data)
         ),
     },
     actions: {
         storeFormData: (
             assign({ 
                 email: (context, event) => event.data.email,
-                message: (context, event) => event.data.message,
                 websiteUrl: (context, event) => event.data.websiteUrl,
                 emailInput: (context, event) => event.data.emailInput,
-                messageInput: (context, event) => event.data.messsageInput,
                 websiteUrlInput: (context, event) => event.data.websiteUrlInput,
             })
         ),
     },
 }
 
-const ContactFormMachine = Machine(statechart, machineConfig);
+const NewsletterSignupMachine = Machine(statechart, machineConfig);
 
-export default ContactFormMachine;
+export default NewsletterSignupMachine;

@@ -20,14 +20,16 @@ const ContactForm = () => {
 
   const emailInputRef = useRef(null);
   const messageInputRef = useRef(null);
+  const websiteUrlInputRef = useRef(null);
 
   const [formData, setFormData] = (
     useState({ 
       email: '', 
       message: '',
-      websiteUrlInput: '',
+      websiteUrl: '',
       emailInput: emailInputRef,
       messageInput: messageInputRef,
+      websiteUrlInput: websiteUrlInputRef,
     })
   );
 
@@ -42,6 +44,7 @@ const ContactForm = () => {
         email: e.target.value,
         emailInput: emailInputRef,
         messageInput: messageInputRef,
+        websiteUrlInput: websiteUrlInputRef,
       })
     ) : (
       setFormData({
@@ -49,6 +52,7 @@ const ContactForm = () => {
         message: e.target.value,
         emailInput: emailInputRef,
         messageInput: messageInputRef,
+        websiteUrlInput: websiteUrlInputRef,
       })
     );
   }
@@ -56,7 +60,7 @@ const ContactForm = () => {
   const handleOnChangeWebsiteUrl = (e) => {
     setFormData({
       ...formData,
-      websiteUrlInput: e.target.value,
+      websiteUrl: e.target.value,
     })
   }
 
@@ -73,7 +77,7 @@ const ContactForm = () => {
     if (
       formData.email !== '' || 
       formData.message !== '' || 
-      formData.websiteUrlInput !== ''
+      formData.websiteUrl !== ''
     ) {
       send({ 
         type: 'CHANGE', 
@@ -150,6 +154,7 @@ const ContactForm = () => {
           <Form.Group className={'pt-4 pb-2'}>
             <span style={!currentState.matches('valid') && !currentState.matches('error') ? notAllowedCursorStyle : null}>
               <Button 
+                id="contactFormButton"
                 variant="primary" 
                 type="submit" 
                 disabled={!currentState.matches('valid') && !currentState.matches('error')}
@@ -197,6 +202,7 @@ const ContactForm = () => {
               tabindex="-1" 
               autocomplete="no" 
               onChange={handleOnChangeWebsiteUrl} 
+              ref={websiteUrlInputRef}
             />
           </Form.Group>
         </Form>
