@@ -1,0 +1,213 @@
+---
+title: Lorem ipsum dolar sapi words python javascript another word so.
+date: 2021-03-09 11:22
+
+cover: ethereum-coin.jpg
+---
+
+
+## h2 Heading
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis et placerat ipsum. Pellentesque eget augue lorem. 
+Aliquam massa dolor, accumsan sit amet dolor nec, pretium maximus massa. Morbi euismod euismod ante quis iaculis. 
+Mauris lacinia pretium ex id ultricies. Phasellus nulla eros, varius ac sapien et, aliquam dapibus nunc. Donec 
+posuere, velit et eleifend ornare, est erat finibus mi, eget gravida urna risus quis justo. Fusce et vulputate 
+felis. Morbi in velit at ligula laoreet scelerisque vitae eu odio. Proin vitae rutrum eros. Sed ornare mattis 
+ex, in molestie orci ultricies viverra.
+
+Mauris ultrices quis nibh in maximus. Phasellus at orci faucibus est efficitur eleifend nec vel tortor. Duis 
+interdum efficitur dui sollicitudin euismod. Sed et scelerisque elit. Duis bibendum viverra cursus. Quisque 
+rutrum justo sed neque hendrerit, tincidunt finibus magna tempor. Morbi metus dui, commodo at scelerisque quis, 
+bibendum ac felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed 
+tincidunt venenatis nunc ac elementum. Ut auctor ex a mi posuere vulputate.
+
+Nunc eget rhoncus dui, eu pharetra dui. Etiam nec est at lacus maximus molestie. Pellentesque faucibus euismod 
+dapibus. Aenean sed faucibus libero. Aenean vitae ligula efficitur magna fermentum facilisis. Nullam eu maximus 
+libero. Phasellus lobortis, lacus at blandit pellentesque, nibh neque finibus elit, vitae vulputate orci ipsum id 
+eros. Ut lacinia eros a vehicula porttitor. 
+
+
+```js
+import { Machine, assign } from 'xstate';
+import validator from 'validator';
+import addToMailchimp from 'gatsby-plugin-mailchimp';
+
+
+const validateNewsletterFormInput = (data) => {
+    const email = data.email;
+
+    const isValidEmail = validator.isEmail(email);
+
+    return new Promise((resolve, reject) => {
+        if (isValidEmail) {
+            return resolve('validated');
+        } else {
+            return reject('not valid');
+        }
+    })
+}
+
+
+const submitNewsletterFormData = async (data) => {
+    const email = data.email;
+    const websiteUrl = data.websiteUrl;
+    const emailInput = data.emailInput;
+    const websiteUrlInput = data.websiteUrlInput;
+    const mailChimpListFields = {'MMERGE6': window.location.href};
+
+    const clearForm = () => {
+        emailInput.current.value = '';
+        websiteUrlInput.current.value = '';
+    }
+
+    // if this input has a value we don't actually submit the form
+    if (websiteUrl) {
+        clearForm();
+        return new Promise((resolve, reject)=>{
+            resolve('Form submitted ;-)')
+        })
+    }
+
+    await addToMailchimp(email, mailChimpListFields)
+        .then(function (response) {
+            clearForm();
+            return response;
+        })
+        .catch(function (error) {
+            return error;
+        })
+
+    return new Promise((resolve, reject)=>{
+        clearForm();
+        return resolve('Form submitted.')
+    })
+}
+
+
+const statechart = {
+    id: 'newsletterForm',
+    initial: 'idle',
+    context: {
+        email: '',
+        websiteUrl: '',
+        emailInput: '',
+        websiteUrlInput: '',
+    },
+    states: {
+        idle: {
+            on: {
+                CHANGE: 'validating',
+            }
+        },
+        validating: {
+            actions: ['storeFormData'],
+            invoke: {
+                id: 'validateEmail',
+                src: 'validateEmail',
+                onDone: 'valid',
+                onError: 'invalid',
+            },
+        },
+        valid: {
+            on: {
+                SUBMIT: 'submitting',
+                CHANGE: 'validating',
+            },
+        },
+        invalid: {
+            on: {
+                CHANGE: 'validating',
+            }
+        },
+        submitting: {
+            invoke: {
+                id: 'submitNewsletterForm',
+                src: 'submitNewsletterForm',
+                onDone: 'success',
+                onError: 'error',
+            },
+        },
+        success: {
+            type: 'final',
+        },
+        error: {
+            on: {
+                CHANGE: 'validating',
+                SUBMIT: 'submitting',
+            }
+        },
+    },
+};
+
+
+const machineConfig = {
+    services: {
+        submitNewsletterForm: (
+            (context, event) => submitNewsletterFormData(event.data)
+        ),
+        validateEmail: (
+            (context, event) => validateNewsletterFormInput(event.data)
+        ),
+    },
+    actions: {
+        storeFormData: (
+            assign({ 
+                email: (context, event) => event.data.email,
+                websiteUrl: (context, event) => event.data.websiteUrl,
+                emailInput: (context, event) => event.data.emailInput,
+                websiteUrlInput: (context, event) => event.data.websiteUrlInput,
+            })
+        ),
+    },
+}
+
+const NewsletterSignupMachine = Machine(statechart, machineConfig);
+
+export default NewsletterSignupMachine;
+
+
+```
+
+
+### h3 Heading
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis et placerat ipsum. Pellentesque eget augue lorem. 
+Aliquam massa dolor, accumsan sit amet dolor nec, pretium maximus massa. Morbi euismod euismod ante quis iaculis. 
+Mauris lacinia pretium ex id ultricies. Phasellus nulla eros, varius ac sapien et, aliquam dapibus nunc. Donec 
+posuere, velit et eleifend ornare, est erat finibus mi, eget gravida urna risus quis justo. Fusce et vulputate 
+felis. Morbi in velit at ligula laoreet scelerisque vitae eu odio. Proin vitae rutrum eros. Sed ornare mattis 
+ex, in molestie orci ultricies viverra.
+
+Mauris ultrices quis nibh in maximus. Phasellus at orci faucibus est efficitur eleifend nec vel tortor. Duis 
+interdum efficitur dui sollicitudin euismod. Sed et scelerisque elit. Duis bibendum viverra cursus. Quisque 
+rutrum justo sed neque hendrerit, tincidunt finibus magna tempor. Morbi metus dui, commodo at scelerisque quis, 
+bibendum ac felis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Sed 
+tincidunt venenatis nunc ac elementum. Ut auctor ex a mi posuere vulputate.
+
+Nunc eget rhoncus dui, eu pharetra dui. Etiam nec est at lacus maximus molestie. Pellentesque faucibus euismod 
+dapibus. Aenean sed faucibus libero. Aenean vitae ligula efficitur magna fermentum facilisis. Nullam eu maximus 
+libero. Phasellus lobortis, lacus at blandit pellentesque, nibh neque finibus elit, vitae vulputate orci ipsum id 
+eros. Ut lacinia eros a vehicula porttitor. 
+
+
+<div className={'text-success'}>This is a div</div>
+
+
+# An <span className={'text-danger'}>H1</span>
+
+
+## This is an H2
+
+
+![mdx logo](./gradient.jpg)
+
+
+```python
+
+class MyModel(models.Model):
+    date = models.DateTimeField(auto_now_add=true)
+    some_other_field = models.TextField()
+
+    def __str__(self):
+        return self.some_other_field
+```

@@ -94,10 +94,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const tags = result.data.allTags.group;
   tags.forEach((tag) => {
     // get all posts for specific tag so we can calculate number of pages.
-    const allTagPosts = posts.filter(post => {
-      return post.frontmatter.tags.includes(tag.fieldValue)
+    const allPostsForTagLength = posts.filter(post => {
+      try {
+        return post.frontmatter.tags.includes(tag.fieldValue).length
+      } catch {
+        return 0
+      }
     })
-    const tagNumPages = Math.ceil(allTagPosts.length / postsPerPage);
+    const tagNumPages = Math.ceil(allPostsForTagLength / postsPerPage);
 
     Array.from({ length: tagNumPages }).forEach((item, i) => {
       createPage({
