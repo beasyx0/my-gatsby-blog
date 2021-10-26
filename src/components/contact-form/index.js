@@ -70,7 +70,11 @@ const ContactForm = () => {
 
   useEffect(()=>{
     // only run if the values change in formData
-    if (formData.email !== '' || formData.message !== '') {
+    if (
+      formData.email !== '' || 
+      formData.message !== '' || 
+      formData.websiteUrlInput !== ''
+    ) {
       send({ 
         type: 'CHANGE', 
         data: formData,
@@ -144,11 +148,11 @@ const ContactForm = () => {
 
           </Form.Group>
           <Form.Group className={'pt-4 pb-2'}>
-            <span style={!currentState.matches('valid') ? notAllowedCursorStyle : null}>
+            <span style={!currentState.matches('valid') && !currentState.matches('error') ? notAllowedCursorStyle : null}>
               <Button 
                 variant="primary" 
                 type="submit" 
-                disabled={!currentState.matches('valid')}
+                disabled={!currentState.matches('valid') && !currentState.matches('error')}
               >
                 Submit
               </Button>

@@ -4,7 +4,6 @@ import validator from 'validator';
 
 
 const validateContactFormInput = (data) => {
-
     const email = data.email;
     const message = data.message;
 
@@ -118,6 +117,7 @@ const statechart = {
         error: {
             on: {
                 CHANGE: 'validating',
+                SUBMIT: 'submitting',
             }
         },
     },
