@@ -32,7 +32,7 @@ const component = {
                   ? matches.groups.lang
                   : ''
 
-    const darkMode = useDarkMode(true);
+    const darkMode = useDarkMode();
 
     const currentThemeChoice = darkMode.value ? duotoneDark : duotoneLite;
 
@@ -84,6 +84,7 @@ export const wrapPageElement = ({ element }) => {
   );
 }
 
+// no longer needed?
 export const wrapRootElement = ({ element }) => {
   return (
     <AppContextProvider>

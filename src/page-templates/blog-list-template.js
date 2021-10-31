@@ -15,7 +15,7 @@ import PaginationNav from '../components/PaginationNav';
 
 
 export const query = graphql`
-  query SITE_INDEX_QUERY($skip: Int!, $limit: Int!) {
+  query ($skip: Int!, $limit: Int!) {
     allPosts: allMdx(
       sort: {fields: [frontmatter___date], order: DESC}
       limit: $limit

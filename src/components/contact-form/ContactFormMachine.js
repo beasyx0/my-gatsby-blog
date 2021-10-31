@@ -66,10 +66,6 @@ const submitContactForm = async (data) => {
     .catch(function (error) {
         return error;
     })
-
-    return new Promise((resolve, reject)=>{
-        return resolve('resolved')
-    })
 }
 
 

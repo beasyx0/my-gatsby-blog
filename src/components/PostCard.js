@@ -28,7 +28,7 @@ const PostCard = (
 
   const postImage = getImage(cover);
 
-  const shareUrl = window.location.href + slug;
+  const shareUrl = typeof window !== 'undefined' ? window.location.href + slug : '';
 
   const postTagsWithCounts = tagsWithCounts.filter(tag => {
     return tags.includes(tag.fieldValue);
