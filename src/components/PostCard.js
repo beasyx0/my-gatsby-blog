@@ -28,6 +28,7 @@ const PostCard = (
 
   const postImage = getImage(cover);
 
+  // make sure this still works in production. Had to put the window check for gatsby-build
   const shareUrl = typeof window !== 'undefined' ? window.location.href + slug : '';
 
   const postTagsWithCounts = tagsWithCounts.filter(tag => {

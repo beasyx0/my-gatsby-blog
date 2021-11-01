@@ -7,15 +7,24 @@ import Col from 'react-bootstrap/Col';
 import { useSiteMetadata } from "../hooks/use-site-metadata";
 import Header from './Header';
 import Sidebar from './Sidebar';
+import Search from './search';
 
 
 const Layout = ({ children }) => {
+
   const { title, description } = useSiteMetadata();
+  const searchIndices = [{ name: `Pages`, title: `Pages` }];
+
   return(
     <Container>
       <Row className={'mb-4'}>
         <Col>
           <Header siteTitle={title} siteDescription={description} />
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Search indices={searchIndices} />
         </Col>
       </Row>
       <Row className={'mb-4'}>

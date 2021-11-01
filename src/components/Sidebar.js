@@ -9,6 +9,7 @@ import NewsletterSignup from './newsletter-signup-form';
 import GitHubWidget from './GitHubWidget';
 import ContactForm from './contact-form';
 
+
 const Sidebar = ({ children }) => {
 
   return(

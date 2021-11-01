@@ -14,7 +14,7 @@ const Header = ({ siteTitle, siteDescription }) => {
   const darkMode = useDarkMode();
 
   return(
-      <header className={`border-bottom ${darkMode.value && 'border-secondary' }`}> 
+      <header className={`mb-2 border-bottom ${darkMode.value && 'border-secondary' }`}> 
         <Container className={'m-0 p-0'}>
           <Row>
             <Col xs={10}>
