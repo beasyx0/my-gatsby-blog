@@ -14,48 +14,45 @@ import {
 const ShareButtons = ({ urlToShare, titleToShare, tags }) => {
 
   return(
-    <div className={'my-3'}>
+    <div className={'my-3 text-center'}>
       <RedditShareButton 
         url={urlToShare} 
         title={titleToShare} 
       >
         <RedditIcon 
-          size={26} 
+          size={32} 
           round={true} 
-          className={'scale-on-hover'}
+          className={'mx-3 scale-on-hover'}
         />
       </RedditShareButton>
       <TwitterShareButton 
         url={urlToShare} 
         title={titleToShare} 
         hashtags={tags} 
-        style={{ marginLeft: '20px' }}
       >
         <TwitterIcon 
-          size={26} 
+          size={32} 
           round={true} 
-          className={'scale-on-hover'}
+          className={'mx-3 scale-on-hover'}
         />
       </TwitterShareButton>
       <FacebookShareButton
         url={urlToShare} 
-        style={{ marginLeft: '20px' }}
       >
         <FacebookIcon 
-          size={26} 
+          size={32} 
           round={true} 
-          className={'scale-on-hover'}
+          className={'mx-3 scale-on-hover'}
         />
       </FacebookShareButton>
       <EmailShareButton
         url={urlToShare} 
         subject={titleToShare} 
-        style={{ marginLeft: '20px' }}
       >
         <EmailIcon 
-          size={26} 
+          size={32} 
           round={true} 
-          className={'scale-on-hover'}
+          className={'mx-3 scale-on-hover'}
         />
       </EmailShareButton>
     </div> 

@@ -8,6 +8,7 @@ import AllTags from './AllTags';
 import NewsletterSignup from './newsletter-signup-form';
 import GitHubWidget from './GitHubWidget';
 import ContactForm from './contact-form';
+import CryptoTip from './crypto-tip';
 
 
 const Sidebar = ({ children }) => {
@@ -21,6 +22,7 @@ const Sidebar = ({ children }) => {
             <NewsletterSignup />
             <GitHubWidget />
             <ContactForm />
+            <CryptoTip />
           </Col>
         </Row>
       </Container>

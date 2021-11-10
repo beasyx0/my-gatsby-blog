@@ -6,10 +6,9 @@ import useDarkMode from 'use-dark-mode';
 import SearchResults from './SearchResults';
 
 
-const SearchBox = connectSearchBox(({ 
+const SearchForm = connectSearchBox(({ 
   refine, 
   currentRefinement, 
-  className, 
   onFocus, 
   indices, 
   query, 
@@ -21,7 +20,7 @@ const SearchBox = connectSearchBox(({
     const handleCloseResults = () => refine('');
 
     return(
-      <Form className={className}>
+      <Form>
         <Form.Group>
           <Form.Label
             for="searchFormInput"
@@ -36,7 +35,7 @@ const SearchBox = connectSearchBox(({
               value={currentRefinement}
               id="searchFormInput" 
               className={`
-                ${className} bg-transparent ${darkMode.value ? 'text-light' : 'text-dark'}
+                bg-transparent ${darkMode.value ? 'text-light' : 'text-dark'}
               `} 
               aria-label="Search"
               type="text"
@@ -57,4 +56,4 @@ const SearchBox = connectSearchBox(({
   }
 )
 
-export default SearchBox;
+export default SearchForm;

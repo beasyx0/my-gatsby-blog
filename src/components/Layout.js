@@ -13,7 +13,6 @@ import Search from './search';
 const Layout = ({ children }) => {
 
   const { title, description } = useSiteMetadata();
-  const searchIndices = [{ name: `Pages`, title: `Pages` }];
 
   return(
     <Container>
@@ -24,7 +23,7 @@ const Layout = ({ children }) => {
       </Row>
       <Row>
         <Col>
-          <Search indices={searchIndices} />
+          <Search />
         </Col>
       </Row>
       <Row className={'mb-4'}>

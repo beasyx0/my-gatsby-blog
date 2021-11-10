@@ -1,11 +1,11 @@
 import algoliasearch from "algoliasearch/lite";
 import React, { createRef, useState, useMemo } from "react";
 import { InstantSearch } from "react-instantsearch-dom";
-import SearchBox from "./SearchBox";
+import SearchForm from "./SearchForm";
 import useClickOutside from "./use-click-outside";
 
 
-const Search = ({ indices }) => {
+const Search = () => {
   const rootRef = createRef();
   const [query, setQuery] = useState('');
   const [hasFocus, setFocus] = useState(false);
@@ -17,6 +17,7 @@ const Search = ({ indices }) => {
       ),
     []
   );
+  const indices = [{ name: `Pages`, title: `Pages` }];
 
   const onClickOutside = () => setFocus(false);
 
@@ -33,7 +34,7 @@ const Search = ({ indices }) => {
         indexName={indices[0].name}
         onSearchStateChange={({ query }) => setQuery(query)}
       >
-        <SearchBox 
+        <SearchForm 
           onFocus={() => setFocus(true)} 
           indices={indices} 
           query={query} 

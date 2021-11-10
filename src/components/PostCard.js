@@ -1,14 +1,11 @@
 import React from 'react';
 import { Link } from 'gatsby';
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
-import _ from 'lodash';
-
-import useDarkMode from 'use-dark-mode';
 
 import Card from 'react-bootstrap/Card';
-import Badge from 'react-bootstrap/Badge';
 
 import ShareButtons from './ShareButtons';
+import Tag from './Tag';
 
 
 const PostCard = (
@@ -23,8 +20,6 @@ const PostCard = (
     cover,
     tagsWithCounts 
   }) => {
-
-  const darkMode = useDarkMode();
 
   const postImage = getImage(cover);
 
@@ -43,7 +38,7 @@ const PostCard = (
           {date} | {timeToRead} min read
         </small>
         <Link to={`/${slug}`}>
-          <h2 className={'h4'}>{title}</h2>
+          <h2 className={'h3'}>{title}</h2>
         </Link>
         <Card.Text>
           <small>
@@ -54,22 +49,8 @@ const PostCard = (
           <ul className={'m-0 list-unstyled'}>
             {postTagsWithCounts.map((tag)=>{
               return(
-                <li className={'m-1 d-inline-block'}>
-                  <Link key={tag.fieldValue} to={`/tags/${_.kebabCase(tag.fieldValue)}/`}>
-                    <Badge 
-                      bg={`${darkMode.value ? 'dark' : 'light'}`} 
-                      className={`(
-                        shadow-sm border ${darkMode.value && 'border-secondary'} rounded scale-on-hover
-                      )`}
-                      style={{
-                        transition: darkMode.value === 'light' ? 'background-color 0.5s ease' : ''
-                      }}
-                    >
-                      <small className={'text-primary'}>
-                        {tag.fieldValue} {tag.totalCount}
-                      </small>
-                    </Badge>
-                  </Link>
+                <li className={'m-2 d-inline-block'}>
+                  <Tag tag={tag} />
                 </li>
               );
             })}

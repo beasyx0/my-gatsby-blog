@@ -2,6 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './root-styles.css';
 import { MDXProvider } from '@mdx-js/react';
+import { DAppProvider } from '@usedapp/core';
 import useDarkMode from 'use-dark-mode';
 import {
   LiveEditor,
@@ -84,11 +85,20 @@ export const wrapPageElement = ({ element }) => {
   );
 }
 
-// no longer needed?
+
+const dAppConfig = {
+  notifications: {
+    expirationPeriod: 10000,
+  },
+}
+
+// AppContext no longer needed?
 export const wrapRootElement = ({ element }) => {
   return (
     <AppContextProvider>
-      {element}
+      <DAppProvider config={dAppConfig}>
+        {element}
+      </DAppProvider>
     </AppContextProvider>
   );
 };

@@ -46,11 +46,6 @@ const submitNewsletterFormData = async (data) => {
         .catch(function (error) {
             return error;
         })
-
-    return new Promise((resolve, reject)=>{
-        clearForm();
-        return resolve('Form submitted.')
-    })
 }
 
 

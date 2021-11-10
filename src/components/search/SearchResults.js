@@ -50,7 +50,7 @@ const CustomHits = ({ hits, handleCloseResults }) => {
   );
 };
 
-const MyHits = connectHits(CustomHits);
+const AllHits = connectHits(CustomHits);
 
 
 const SearchResultsStyles = {
@@ -75,7 +75,7 @@ const SearchResults = ({ indices, handleCloseResults }) => {
       {indices.map(index => (
         <Index indexName={index.name}>
           <HitCount />
-          <MyHits hitComponent={CustomHits} handleCloseResults={handleCloseResults} />
+          <AllHits hitComponent={CustomHits} handleCloseResults={handleCloseResults} />
         </Index>
       ))}
       <PoweredBy />

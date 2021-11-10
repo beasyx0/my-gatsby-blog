@@ -1,12 +1,11 @@
 import React from 'react';
-import { graphql, StaticQuery, Link } from 'gatsby';
-import _ from 'lodash';
+import { graphql, StaticQuery } from 'gatsby';
 import useDarkMode from 'use-dark-mode';
 
 import Card from 'react-bootstrap/Card';
-import Badge from 'react-bootstrap/Badge';
 
 import { FaTags } from 'react-icons/fa';
+import Tag from './Tag';
 
 
 const AllTags = () => {
@@ -28,34 +27,20 @@ const AllTags = () => {
       render={data => (
         <Card className={'mb-4 p-2 bg-transparent shadow'}>
           <Card.Body>
-            <h5>
+            <h5 className={'mb-4'}>
               <FaTags className={darkMode.value ? 'text-light' : 'text-dark'} />
               {' '}
               Tags ({data.allMdx.group.length})
             </h5>
-            {data.allMdx.group.map((obj)=>{
-              return(
-                <Link 
-                  key={obj.fieldValue} 
-                  to={`/tags/${_.kebabCase(obj.fieldValue)}/`} 
-                  className={'m-2'} style={{ lineHeight: '40px' }}
-                >
-                  <Badge 
-                    bg={`${darkMode.value ? 'dark' : 'light'}`} 
-                    className={`(
-                      shadow-sm border ${(
-                        darkMode.value && 'border-secondary'
-                      )} rounded text-primary scale-on-hover
-                    )`}
-                    style={{
-                      transition: darkMode.value === 'light' ? 'background-color 0.5s ease' : ''
-                    }}
-                  >
-                   {obj.fieldValue} {obj.totalCount}
-                  </Badge>
-                </Link>
-              );
-            })}
+            <ul className={'m-0 list-unstyled'}>
+              {data.allMdx.group.map((obj)=>{
+                return(
+                  <li className={'m-2 d-inline-block'}>
+                    <Tag tag={obj} />
+                  </li>
+                );
+              })}
+            </ul>
           </Card.Body>
         </Card>
       )}
