@@ -1,5 +1,6 @@
 import React from 'react';
 import { graphql, Link } from 'gatsby';
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXRenderer } from 'gatsby-plugin-mdx';
 import Seo from 'react-seo-component';
 import { FastCommentsCommentWidget } from 'fastcomments-react';
@@ -7,6 +8,7 @@ import { useSiteMetadata } from '../hooks/use-site-metadata';
 import useDarkMode from 'use-dark-mode';
 import AnimatePage from '../components/AnimatePage';
 import Tag from '../components/Tag';
+import Toc from '../components/Toc';
 
 
 export const query = graphql`
@@ -16,10 +18,19 @@ export const query = graphql`
       slug
       body
       excerpt
+      tableOfContents
       frontmatter {
         title
         date(formatString: "MMMM Do, YYYY @ h:mm a")
         tags
+        cover {
+            publicURL
+            childImageSharp {
+              gatsbyImageData(
+                placeholder: BLURRED
+              )
+            }
+          }
       }
     }
     allTags: allMdx {
@@ -31,7 +42,7 @@ export const query = graphql`
   }
 `;
 
-// single post
+
 const PostPage = ({ data }) => {
 
   const {
@@ -46,16 +57,21 @@ const PostPage = ({ data }) => {
 
   const { 
     slug,
-    frontmatter: { title, date, tags },
+    frontmatter: { date, title, tags, cover },
     excerpt,
+    tableOfContents,
     body, 
   } = data.postDetails;
+
+  // alert(JSON.stringify(tableOfContents))
 
   const tagsWithCounts = data.allTags.group;
 
   const postTagsWithCounts = tagsWithCounts.filter(tag => {
     return tags.includes(tag.fieldValue);
   });
+
+  const postImage = getImage(cover);
 
   const darkMode = useDarkMode();
 
@@ -78,24 +94,28 @@ const PostPage = ({ data }) => {
       />
       <AnimatePage>
         <article>
-          <div className={'mt-4 mb-4 pb-4'}>
+          <div className={'mb-4'}>
             <p>{date}</p>
             <Link to={`/${slug}`}>
               <h1>{title}</h1>
             </Link>
             {postTagsWithCounts && (
-              <ul className={'m-0 list-unstyled'}>
+              <ul className={'mx-0 list-unstyled'}>
                 {postTagsWithCounts.map((tag)=>(
-                  <li className={'m-2 d-inline-block'}>
+                  <li className={'small m-2 d-inline-block'}>
                     <Tag tag={tag} />
                   </li>
                 ))}
               </ul>
             )}
+            <GatsbyImage image={postImage} alt={'Blog post cover image.'} />
           </div>
-          <MDXRenderer>
-            {body}
-          </MDXRenderer>
+          <Toc tableOfContents={tableOfContents} />
+          <div id="blog-post">
+            <MDXRenderer>
+              {body}
+            </MDXRenderer>
+          </div>
         </article>
         <div className={'mt-5'}>
           <FastCommentsCommentWidget 

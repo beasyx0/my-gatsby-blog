@@ -86,7 +86,7 @@ const NewsletterSignup = () => {
     <Card className={'mb-4 p-1 bg-transparent shadow'}>
       <Card.Body>
         <h5>
-          <FaRss className={darkMode.value ? 'text-light' : 'text-dark'} />
+          <FaRss />
           {' '}
           Sign up for the newsletter
         </h5>

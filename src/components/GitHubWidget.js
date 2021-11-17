@@ -68,7 +68,7 @@ const GitHubWidget = () => {
         <Card className={'mb-4 p-2 bg-transparent shadow'} style={gitHubWidgetStyles}>
           <div className={'px-2 d-flex justify-content-between'}>
             <h5>
-              <FaGithub className={darkMode.value ? 'text-light' : 'text-dark'} />
+              <FaGithub />
               {' '}
               Repos
               {' '}

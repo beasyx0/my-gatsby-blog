@@ -1,12 +1,14 @@
 import { Link } from "gatsby"
 import React from "react"
 import {
+  Configure, 
   connectStateResults,
   connectHits,
   Highlight,
   Index,
   Snippet,
   PoweredBy,
+  Pagination
 } from "react-instantsearch-dom"
 import useDarkMode from 'use-dark-mode';
 
@@ -68,17 +70,21 @@ const SearchResults = ({ indices, handleCloseResults }) => {
   return(
     <div 
       className={`
-        ${darkMode.value ? 'bg-dark' : 'bg-light'} p-2 position-absolute rounded
+        p-2 position-absolute ${darkMode.value ? 'bg-dark' : 'bg-light'} rounded border border-secondary
       `}
       style={SearchResultsStyles}
     >
       {indices.map(index => (
         <Index indexName={index.name}>
+          <Configure hitsPerPage={10} />
           <HitCount />
           <AllHits hitComponent={CustomHits} handleCloseResults={handleCloseResults} />
+          <Pagination showLast />
         </Index>
       ))}
-      <PoweredBy />
+      <small>
+        <PoweredBy />
+      </small>
     </div>
   );
 };

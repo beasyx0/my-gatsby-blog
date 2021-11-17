@@ -20,7 +20,7 @@ const ShareButtons = ({ urlToShare, titleToShare, tags }) => {
         title={titleToShare} 
       >
         <RedditIcon 
-          size={32} 
+          size={28} 
           round={true} 
           className={'mx-3 scale-on-hover'}
         />
@@ -31,7 +31,7 @@ const ShareButtons = ({ urlToShare, titleToShare, tags }) => {
         hashtags={tags} 
       >
         <TwitterIcon 
-          size={32} 
+          size={28} 
           round={true} 
           className={'mx-3 scale-on-hover'}
         />
@@ -40,7 +40,7 @@ const ShareButtons = ({ urlToShare, titleToShare, tags }) => {
         url={urlToShare} 
       >
         <FacebookIcon 
-          size={32} 
+          size={28} 
           round={true} 
           className={'mx-3 scale-on-hover'}
         />
@@ -50,7 +50,7 @@ const ShareButtons = ({ urlToShare, titleToShare, tags }) => {
         subject={titleToShare} 
       >
         <EmailIcon 
-          size={32} 
+          size={28} 
           round={true} 
           className={'mx-3 scale-on-hover'}
         />

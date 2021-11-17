@@ -34,7 +34,7 @@ const PostCard = (
     <Card key={slug} className={'mb-4 p-2 bg-transparent shadow post-card-scale-on-hover'}>
       <GatsbyImage image={postImage} alt={'Blog post cover image.'} />
       <Card.Body className={'px-1'}>
-        <small className={'m-0 text-secondary'}>
+        <small className={'m-0'}>
           {date} | {timeToRead} min read
         </small>
         <Link to={`/${slug}`}>
@@ -42,14 +42,14 @@ const PostCard = (
         </Link>
         <Card.Text>
           <small>
-          {excerpt}
+           {excerpt}
           </small>
         </Card.Text>
         {tags && (
           <ul className={'m-0 list-unstyled'}>
             {postTagsWithCounts.map((tag)=>{
               return(
-                <li className={'m-2 d-inline-block'}>
+                <li className={'small mx-1 d-inline-block'}>
                   <Tag tag={tag} />
                 </li>
               );

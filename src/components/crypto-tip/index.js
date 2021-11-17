@@ -27,7 +27,7 @@ import {
   FaCheck, 
   FaTimes, 
   FaEthereum, 
-  FaWallet 
+  FaWallet
 } from 'react-icons/fa';
 
 import Identicon from './Identicon';
@@ -140,12 +140,17 @@ const CryptoTip = () => {
     cursor: 'not-allowed',
   }
 
+  const formLabelStyle = {
+    position: 'absolute',
+    left: '-9999px'
+  }
+
   return(
     <Card className={'mb-4 p-2 bg-transparent shadow'}>
       <Card.Body>
         <div className={'d-flex justify-content-between'}>
           <h5 className={'mb-4'}>
-            <FaEthereum className={`${darkMode.value ? 'text-light' : 'text-dark'}`}  />
+            <FaEthereum  />
             {' '}
             Tip Ether
           </h5>
@@ -162,23 +167,25 @@ const CryptoTip = () => {
         </Card.Text>
         {account ? (
           <>
-            <div className={`
-              px-1 d-inline-block border ${darkMode.value && 'border-secondary'} rounded
-            `}>
-              <span className={`mx-2 ${darkMode.value && 'text-light'}`}>
-                {etherBalance && parseFloat(formatEther(etherBalance)).toFixed(3)} ETH 
-              </span>
+            <div className={'d-flex justify-content-between'}>
               <div className={`
-                px-1 d-inline border ${darkMode.value && 'border-secondary bg-dark'} rounded
+                mb-2 px-1 d-inline-block border ${darkMode.value && 'border-secondary'} rounded
               `}>
-                <small>
-                  {account.slice(0, 6)}...{account.slice(account.length - 4, account.length)}
+                <small className={'mx-2'}>
+                  {etherBalance && parseFloat(formatEther(etherBalance)).toFixed(3)} ETH 
                 </small>
-                <Identicon />
+                <div className={`
+                  px-1 d-inline border ${darkMode.value ? 'border-secondary bg-dark' : 'bg-light'} rounded
+                `}>
+                  <small>
+                    {account.slice(0, 6)}...{account.slice(account.length - 4, account.length)}
+                  </small>
+                  <Identicon />
+                </div>
               </div>
             </div>
             <Form onSubmit={handleSubmitDonation}>
-              <Form.Label for="cryptoTipInput" className={'invisible'}>
+              <Form.Label for="cryptoTipInput" style={formLabelStyle}>
                 Amount to donate
               </Form.Label>
               <Form.Control 

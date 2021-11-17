@@ -35,4 +35,4 @@ const PostList = ({ postsData, tagsData }) => {
     </Container>
   );
 }
-export default PostList; 
+export default PostList;

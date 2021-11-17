@@ -29,14 +29,12 @@ const SearchForm = connectSearchBox(({
             Search
           </Form.Label>
           <div className={'d-flex justify-content-between align-items-center'}>
-            <FaSearch className={`mx-3 h4 ${darkMode.value ? 'text-light' : 'text-dark'}`} />
+            <FaSearch className={'mx-3 h4'} />
             <Form.Control 
               required
               value={currentRefinement}
               id="searchFormInput" 
-              className={`
-                bg-transparent ${darkMode.value ? 'text-light' : 'text-dark'}
-              `} 
+              className={'bg-transparent text-muted'} 
               aria-label="Search"
               type="text"
               name="searchFormInput" 

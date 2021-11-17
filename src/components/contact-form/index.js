@@ -104,7 +104,7 @@ const ContactForm = () => {
     <Card className={'mb-4 p-2 bg-transparent shadow'}>
       <Card.Body>
         <h5>
-          <FaEnvelopeSquare className={darkMode.value ? 'text-light' : 'text-dark'} />
+          <FaEnvelopeSquare />
           {' '}
           Contact
         </h5>

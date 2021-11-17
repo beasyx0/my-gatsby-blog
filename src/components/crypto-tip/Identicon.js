@@ -3,11 +3,15 @@ import { useEthers } from '@usedapp/core';
 
 import Jazzicon from '@metamask/jazzicon';
 
+import useDarkMode from 'use-dark-mode';
+
 
 const Identicon = () => {
 
   const ref = useRef();
   const { account } = useEthers();
+
+  const darkMode = useDarkMode();
 
   const identiconStyles = {
     width: '1rem',
@@ -22,7 +26,7 @@ const Identicon = () => {
   }, [account])
 
   return(
-    <div ref={ref} style={identiconStyles} className={'px-1 d-inline bg-dark'}></div>
+    <div ref={ref} style={identiconStyles} className={`px-1 d-inline ${darkMode.value ? 'bg-dark' : 'bg-light'}`}></div>
   );
 
 }

@@ -28,7 +28,7 @@ const Search = () => {
   }
 
   return (
-    <div className={'m-auto position-relative'} style={searchContainerStyles} ref={rootRef}>
+    <div className={'m-auto pb-3 position-relative'} style={searchContainerStyles} ref={rootRef}>
       <InstantSearch
         searchClient={searchClient}
         indexName={indices[0].name}

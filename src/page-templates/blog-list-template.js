@@ -101,7 +101,7 @@ const BlogListTemplate = ({data, pageContext}) => {
       />
       <AnimatePage>
         <h1 className={'h5'}>
-          <FaBlog className={darkMode.value ? 'text-light' : 'text-dark'} />
+          <FaBlog />
           {' '}
           { blogHeader }
         </h1>
