@@ -26,6 +26,9 @@ body.dark-mode {
 a {
   text-decoration: none;
 }
+p {
+  line-height: 1.7;
+}
 .scale-on-hover:hover {
   transform: scale(1.1);
 }

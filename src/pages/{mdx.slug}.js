@@ -18,7 +18,6 @@ export const query = graphql`
       slug
       body
       excerpt
-      tableOfContents
       frontmatter {
         title
         date(formatString: "MMMM Do, YYYY @ h:mm a")
@@ -59,11 +58,8 @@ const PostPage = ({ data }) => {
     slug,
     frontmatter: { date, title, tags, cover },
     excerpt,
-    tableOfContents,
     body, 
   } = data.postDetails;
-
-  // alert(JSON.stringify(tableOfContents))
 
   const tagsWithCounts = data.allTags.group;
 
@@ -108,9 +104,12 @@ const PostPage = ({ data }) => {
                 ))}
               </ul>
             )}
-            <GatsbyImage image={postImage} alt={'Blog post cover image.'} />
+            <GatsbyImage 
+              image={postImage} 
+              alt={'Blog post cover image.'} 
+            />
           </div>
-          <Toc tableOfContents={tableOfContents} />
+          <Toc />
           <div id="blog-post">
             <MDXRenderer>
               {body}
